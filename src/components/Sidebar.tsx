@@ -14,11 +14,14 @@ import {
   HelpCircle,
   ChevronDown,
   Sparkles,
-  ExternalLink,
+  BookOpen,
+  ArrowRight,
+  GraduationCap,
 } from "lucide-react";
 import { CATEGORIES } from "@/lib/categories";
 
 const iconMap: Record<string, React.ElementType> = {
+  Sparkles,
   Compass,
   Calendar,
   Users,
@@ -29,7 +32,23 @@ const iconMap: Record<string, React.ElementType> = {
   HelpCircle,
 };
 
-// 각 카테고리별 주요 문서 매핑 (정적 목록)
+// 12단계 초보자 가이드 목록
+export const BEGINNER_STEPS = [
+  { step: "01", slug: "beginner/step-01-game-intro", title: "01. 게임 소개" },
+  { step: "02", slug: "beginner/step-02-new-game", title: "02. 새 게임 시작" },
+  { step: "03", slug: "beginner/step-03-founding-draft", title: "03. 창단 드래프트" },
+  { step: "04", slug: "beginner/step-04-negotiation", title: "04. 계약 협상" },
+  { step: "05", slug: "beginner/step-05-trainee-and-fa", title: "05. 연습생 영입" },
+  { step: "06", slug: "beginner/step-06-roster-and-opening", title: "06. 선수단 편성" },
+  { step: "07", slug: "beginner/step-07-weekly-routine", title: "07. 주간 운영" },
+  { step: "08", slug: "beginner/step-08-attributes-and-growth", title: "08. 아이돌 육성" },
+  { step: "09", slug: "beginner/step-09-matches-and-contents", title: "09. 경기" },
+  { step: "10", slug: "beginner/step-10-midseason-management", title: "10. 기획사 운영" },
+  { step: "11", slug: "beginner/step-11-postseason-and-awards", title: "11. 포스트시즌" },
+  { step: "12", slug: "beginner/step-12-offseason-next-season", title: "12. 다음 시즌" },
+];
+
+// 기존 8개 일반 위키 카테고리별 주요 문서 매핑
 export const SIDEBAR_NAV = [
   {
     categoryId: "introduction",
@@ -72,7 +91,7 @@ export const SIDEBAR_NAV = [
       { slug: "draft/annual-draft", title: "매년 통합 3R 드래프트" },
       { slug: "draft/new-idols", title: "신규 유입 70명 & 특별유망주" },
       { slug: "draft/contracts", title: "시장연봉 및 계약 협상" },
-      { slug: "draft/trainee-recruitment", title: "월요일 연습생 자유추첨" },
+      { slug: "draft/trainee-recruitment", title: "연습생 추첨 영입" },
       { slug: "draft/fa-market", title: "FA 공개 경쟁 입찰" },
       { slug: "draft/trade", title: "선수 맞교환 트레이드" },
       { slug: "draft/release-retire", title: "방출 위약금 및 은퇴" },
@@ -120,13 +139,13 @@ export function Sidebar({ className = "" }: { className?: string }) {
   const pathname = usePathname();
   const [openCategories, setOpenCategories] = useState<Record<string, boolean>>({
     introduction: true,
-    season: true,
-    idols: true,
-    draft: true,
-    matches: true,
-    management: true,
-    records: true,
-    faq: true,
+    season: false,
+    idols: false,
+    draft: false,
+    matches: false,
+    management: false,
+    records: false,
+    faq: false,
   });
 
   const toggleCategory = (catId: string) => {
@@ -136,106 +155,135 @@ export function Sidebar({ className = "" }: { className?: string }) {
     }));
   };
 
+  const isBeginnerDoc = pathname.includes("/wiki/beginner");
+
   return (
     <aside
       className={`w-64 flex-shrink-0 select-none pb-12 ${className}`}
       aria-label="위키 목차 사이드바"
     >
       <div className="sticky top-20 max-h-[calc(100vh-6rem)] overflow-y-auto pr-2 space-y-4">
-        {/* 상단 퀵 링크 */}
-        <div className="bg-white rounded-xl border border-wiki-border p-3 shadow-xs">
-          <div className="text-[11px] font-bold uppercase tracking-wider text-wiki-muted px-2 mb-2">
-            위키 바로가기
-          </div>
-          <div className="space-y-0.5">
-            <Link
-              href="/"
-              className={`flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-xs font-semibold transition-colors ${
-                pathname === "/"
-                  ? "bg-brand-500 text-white shadow-xs"
-                  : "text-wiki-text hover:bg-brand-50 hover:text-brand-600"
-              }`}
-            >
-              <Sparkles className="w-3.5 h-3.5" />
-              <span>위키 대문 (홈)</span>
-            </Link>
-            <Link
-              href="/wiki"
-              className={`flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-xs font-semibold transition-colors ${
-                pathname === "/wiki"
-                  ? "bg-brand-500 text-white shadow-xs"
-                  : "text-wiki-text hover:bg-brand-50 hover:text-brand-600"
-              }`}
-            >
-              <Compass className="w-3.5 h-3.5" />
-              <span>모든 문서 색인</span>
-            </Link>
-          </div>
+        {/* 상단 1: 위키 대문 및 전체 색인 퀵 링크 */}
+        <div className="bg-white rounded-xl border border-wiki-border p-3 shadow-xs space-y-1">
+          <Link
+            href="/"
+            className={`flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-xs font-semibold transition-colors ${
+              pathname === "/"
+                ? "bg-brand-600 text-white shadow-xs"
+                : "text-wiki-text hover:bg-brand-50 hover:text-brand-600"
+            }`}
+          >
+            <Sparkles className="w-3.5 h-3.5" />
+            <span>위키 대문 (홈)</span>
+          </Link>
+          <Link
+            href="/wiki"
+            className={`flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-xs font-semibold transition-colors ${
+              pathname === "/wiki"
+                ? "bg-brand-600 text-white shadow-xs"
+                : "text-wiki-text hover:bg-brand-50 hover:text-brand-600"
+            }`}
+          >
+            <Compass className="w-3.5 h-3.5" />
+            <span>전체 위키 문서 색인</span>
+          </Link>
         </div>
 
-        {/* 카테고리 트리 */}
-        <div className="bg-white rounded-xl border border-wiki-border p-3 shadow-xs space-y-3">
-          <div className="text-[11px] font-bold uppercase tracking-wider text-wiki-muted px-2">
-            게임 시스템 분류
+        {/* 상단 2: [처음 시작하기] 게임 진행 순서별 12단계 가이드 */}
+        <div className="bg-white rounded-xl border border-brand-200/80 p-3 shadow-xs space-y-2.5">
+          <div className="flex items-center justify-between px-1">
+            <span className="text-xs font-extrabold text-brand-700 flex items-center gap-1.5">
+              <GraduationCap className="w-4 h-4 text-brand-600" />
+              <span>처음 시작하기 (12단계)</span>
+            </span>
+            <span className="text-[10px] px-1.5 py-0.2 rounded-full bg-brand-100 text-brand-700 font-mono font-bold">
+              입문
+            </span>
           </div>
 
-          {CATEGORIES.map((cat) => {
-            const Icon = iconMap[cat.icon] || Compass;
-            const isOpen = openCategories[cat.id] ?? false;
-            const navGroup = SIDEBAR_NAV.find((g) => g.categoryId === cat.id);
+          <nav className="space-y-0.5 text-xs">
+            {BEGINNER_STEPS.map((item) => {
+              const href = `/wiki/${item.slug}`;
+              const isActive = pathname === href;
 
-            return (
-              <div key={cat.id} className="space-y-1">
-                <button
-                  onClick={() => toggleCategory(cat.id)}
-                  className="w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-xs font-bold text-wiki-text hover:bg-brand-50 hover:text-brand-600 transition-colors"
+              return (
+                <Link
+                  key={item.slug}
+                  href={href}
+                  className={`flex items-center justify-between px-2.5 py-1.5 rounded-lg font-medium transition-all ${
+                    isActive
+                      ? "bg-brand-600 text-white font-bold shadow-2xs"
+                      : "text-wiki-text hover:bg-brand-50 hover:text-brand-700"
+                  }`}
                 >
-                  <div className="flex items-center gap-2">
-                    <Icon className="w-4 h-4 text-brand-500" />
-                    <span>{cat.name}</span>
-                  </div>
-                  <ChevronDown
-                    className={`w-3.5 h-3.5 text-wiki-muted transition-transform duration-200 ${
-                      isOpen ? "rotate-0" : "-rotate-90"
-                    }`}
-                  />
-                </button>
-
-                {isOpen && navGroup && (
-                  <div className="pl-6 pr-1 space-y-0.5 border-l-2 border-brand-100 ml-3 py-1">
-                    {navGroup.items.map((item) => {
-                      const isActive = pathname === `/wiki/${item.slug}`;
-                      return (
-                        <Link
-                          key={item.slug}
-                          href={`/wiki/${item.slug}`}
-                          className={`block py-1 px-2 rounded text-xs transition-colors truncate ${
-                            isActive
-                              ? "bg-brand-50 text-brand-700 font-bold border-l-2 border-brand-500 -ml-[2px]"
-                              : "text-wiki-secondary hover:text-brand-600 hover:bg-wiki-bg/80"
-                          }`}
-                          title={item.title}
-                        >
-                          {item.title}
-                        </Link>
-                      );
-                    })}
-                  </div>
-                )}
-              </div>
-            );
-          })}
+                  <span className="truncate">{item.title}</span>
+                  {isActive && <ArrowRight className="w-3 h-3 flex-shrink-0 ml-1 text-brand-200" />}
+                </Link>
+              );
+            })}
+          </nav>
         </div>
 
-        {/* 하단 버전 정보 카드 */}
-        <div className="rounded-xl border border-brand-200 bg-brand-50/50 p-3 text-xs text-wiki-secondary">
-          <div className="font-bold text-brand-900 text-xs flex items-center gap-1.5 mb-1">
-            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-            IDOL Manager v0.29.1
+        {/* 하단: [전체 위키] 기존 8개 카테고리 접기/펼치기 */}
+        <div className="bg-white rounded-xl border border-wiki-border p-3 shadow-xs space-y-2">
+          <div className="flex items-center justify-between px-1 pb-1 border-b border-wiki-border/60">
+            <span className="text-xs font-bold text-wiki-secondary flex items-center gap-1.5">
+              <BookOpen className="w-3.5 h-3.5 text-wiki-muted" />
+              <span>전체 위키 (상세 백과)</span>
+            </span>
+            <span className="text-[10px] text-wiki-muted font-mono">8개 분류</span>
           </div>
-          <p className="text-[11px] text-brand-700/80 leading-relaxed">
-            최신 확정 마스터 기획서(2026-10-27) 및 최신 배포 코드를 반영한 공식 위키입니다.
-          </p>
+
+          <div className="space-y-1 pt-1">
+            {CATEGORIES.filter((c) => c.id !== "beginner").map((cat) => {
+              const Icon = iconMap[cat.icon] || Compass;
+              const isOpen = openCategories[cat.id] ?? false;
+              const navGroup = SIDEBAR_NAV.find((g) => g.categoryId === cat.id);
+
+              return (
+                <div key={cat.id} className="space-y-0.5">
+                  <button
+                    type="button"
+                    onClick={() => toggleCategory(cat.id)}
+                    className="w-full flex items-center justify-between px-2 py-1.5 rounded-lg text-xs font-semibold text-wiki-text hover:bg-brand-50 hover:text-brand-600 transition-colors"
+                  >
+                    <div className="flex items-center gap-2">
+                      <Icon className="w-3.5 h-3.5 text-brand-500" />
+                      <span>{cat.name}</span>
+                    </div>
+                    <ChevronDown
+                      className={`w-3.5 h-3.5 text-wiki-muted transition-transform duration-200 ${
+                        isOpen ? "rotate-0" : "-rotate-90"
+                      }`}
+                    />
+                  </button>
+
+                  {isOpen && navGroup && (
+                    <div className="pl-4 pr-1 py-0.5 space-y-0.5 border-l-2 border-brand-100 ml-3">
+                      {navGroup.items.map((item) => {
+                        const href = `/wiki/${item.slug}`;
+                        const isActive = pathname === href;
+
+                        return (
+                          <Link
+                            key={item.slug}
+                            href={href}
+                            className={`block px-2 py-1 rounded text-[11px] truncate transition-colors ${
+                              isActive
+                                ? "text-brand-700 font-bold bg-brand-50"
+                                : "text-wiki-secondary hover:text-brand-600 hover:bg-brand-50/50"
+                            }`}
+                          >
+                            {item.title}
+                          </Link>
+                        );
+                      })}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
     </aside>

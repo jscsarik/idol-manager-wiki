@@ -8,6 +8,13 @@ export interface Category {
 
 export const CATEGORIES: Category[] = [
   {
+    id: "beginner",
+    name: "처음 시작하기",
+    description: "게임 진행 순서대로 배우는 초보자 전용 12단계 완전 가이드",
+    icon: "Sparkles",
+    order: 0,
+  },
+  {
     id: "introduction",
     name: "게임 소개",
     description: "IDOL Manager의 기본 개요, 특징, 설치 및 기본 조작법",
