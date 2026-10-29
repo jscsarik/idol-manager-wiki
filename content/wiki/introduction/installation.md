@@ -18,7 +18,19 @@ related:
   - faq/known-issues
 ---
 
-## 1. 시스템 요구사양
+## 1. 공식 게임 클라이언트 다운로드
+
+IDOL Manager의 공식 최신 배포판은 Google Drive를 통해 바로 다운로드받으실 수 있습니다.
+
+> 💾 **[IDOL_Manager-0.30.3.zip 공식 다운로드 (Google Drive)](https://drive.google.com/file/d/1lHliyWBKve_eaAQuCoKWbbJf33lBydsm/view?usp=sharing)**
+> 
+> * **최신 버전**: v0.30.3
+> * **파일 형식**: ZIP 압축 파일 (`IDOL_Manager-0.30.3.zip`)
+> * **설치 방법**: ZIP 압축을 원하는 폴더에 푼 뒤 `실행하기.bat` 또는 `IDOL_Manager.exe`를 실행하세요.
+
+---
+
+## 2. 시스템 요구사양
 
 - **운영체제**: Microsoft Windows 10 이상 (64-bit 전용)
 - **CPU**: 인텔 코어 i3 / AMD 라이젠 3 이상

@@ -23,7 +23,11 @@ nextTitle: "03. 최초 창단 드래프트"
 
 ## 1. 게임 실행과 2개 세이브 슬롯
 
-IDOL Manager는 Windows PC 환경에서 실행됩니다. 시작 화면의 핵심 버튼은 두 가지입니다.
+IDOL Manager는 Windows PC 환경에서 실행됩니다. 아직 게임 클라이언트가 없다면 아래 공식 배포 링크에서 최신 버전을 내려받으세요.
+
+> 💾 **[IDOL_Manager-0.30.3.zip 다운로드 (Google Drive)](https://drive.google.com/file/d/1lHliyWBKve_eaAQuCoKWbbJf33lBydsm/view?usp=sharing)**
+
+압축을 풀고 `실행하기.bat`를 실행하면 차분한 연보라빛 시작 화면이 나타납니다. 핵심 버튼은 두 가지입니다:
 
 * **[불러오기]**: 이전에 진행하던 기획사 데이터를 이어서 플레이합니다.
 * **[새 게임]**: 새로운 기획사를 맡아 완전히 새로운 시즌을 시작합니다.

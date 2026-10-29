@@ -15,8 +15,10 @@ import {
   Building2,
   HelpCircle,
   Award,
-  UserCheck,
-  Search,
+  Download,
+  Star,
+  Heart,
+  ExternalLink,
 } from "lucide-react";
 import { getAllDocs } from "@/lib/wiki";
 import { CATEGORIES } from "@/lib/categories";
@@ -27,7 +29,9 @@ export default function HomePage() {
   const allDocs = getAllDocs();
   const recentDocs = allDocs.slice(0, 5);
 
-  // 12단계 가이드 상세 메타데이터 (제목과 한 줄 설명)
+  const DOWNLOAD_URL = "https://drive.google.com/file/d/1lHliyWBKve_eaAQuCoKWbbJf33lBydsm/view?usp=sharing";
+
+  // 12단계 가이드 상세 메타데이터
   const guideSteps = [
     {
       num: "01",
@@ -118,68 +122,105 @@ export default function HomePage() {
 
   return (
     <main className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
-      {/* 1. 상단 히어로: 사이트 소개 및 큰 2대 탐색 선택지 */}
-      <section className="text-center space-y-6 pt-4 pb-2">
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-50 border border-brand-200 text-brand-700 text-xs font-bold tracking-wide">
-          <Sparkles className="w-4 h-4 text-brand-600" />
-          <span>IDOL MANAGER OFFICIAL GAME WIKI</span>
+      {/* 1. 상단 마법소녀 히어로 & 다운로드 배너 */}
+      <section className="text-center space-y-6 pt-4 pb-2 relative">
+        {/* 마법소녀 별빛 장식 뱃지 */}
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gradient-to-r from-pink-50 via-purple-50 to-pink-50 border border-pink-200 text-pink-700 text-xs font-bold tracking-wide shadow-xs magic-float">
+          <Sparkles className="w-4 h-4 text-pink-500 magic-twinkle" />
+          <span>MAGICAL IDOL MANAGER OFFICIAL WIKI</span>
+          <Star className="w-3.5 h-3.5 text-amber-400 fill-amber-300" />
         </div>
 
         <div className="space-y-3 max-w-3xl mx-auto">
-          <h1 className="text-3xl sm:text-5xl font-extrabold text-wiki-text tracking-tight">
-            IDOL Manager <span className="text-brand-600">Wiki</span>
+          <h1 className="text-3xl sm:text-5xl font-black text-wiki-text tracking-tight">
+            IDOL Manager <span className="bg-gradient-to-r from-pink-500 via-fuchsia-500 to-purple-600 bg-clip-text text-transparent">Wiki</span>
           </h1>
           <p className="text-base sm:text-lg text-wiki-secondary leading-relaxed font-normal">
-            아이돌 기획사를 운영하고, 선수를 영입하고, 리그 우승에 도전하는 경영 시뮬레이션 게임의 공식 가이드입니다.
+            아이돌 기획사를 운영하고, 마법 같은 별빛 선수를 영입하여 리그 우승에 도전하는 경영 시뮬레이션 게임의 공식 가이드입니다.
           </p>
         </div>
 
-        {/* 핵심 2대 선택지 (크고 명확한 CTA 버튼) */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4 max-w-xl mx-auto">
+        {/* 🎮 공식 게임 다운로드 스페셜 배너 (마법소녀 카드) */}
+        <div className="max-w-xl mx-auto p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-pink-500/10 via-purple-500/10 to-pink-500/10 border-2 border-pink-200/90 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4 text-left">
+          <div className="flex items-center gap-3.5">
+            <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-pink-500 to-purple-600 flex items-center justify-center text-white shadow-md flex-shrink-0">
+              <Download className="w-6 h-6 text-white" />
+            </div>
+            <div>
+              <div className="flex items-center gap-2">
+                <span className="font-extrabold text-sm sm:text-base text-wiki-text">
+                  게임 클라이언트 다운로드
+                </span>
+                <span className="px-2 py-0.5 rounded-full bg-pink-100 text-pink-700 text-[11px] font-bold font-mono">
+                  v0.30.3
+                </span>
+              </div>
+              <p className="text-xs text-wiki-secondary mt-0.5">
+                IDOL_Manager-0.30.3.zip (Google Drive 공식 배포)
+              </p>
+            </div>
+          </div>
+
+          <a
+            href={DOWNLOAD_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-gradient-to-r from-pink-500 via-fuchsia-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-md hover:shadow-lg hover:scale-102 transition-all cursor-pointer whitespace-nowrap"
+          >
+            <span>지금 다운로드</span>
+            <ExternalLink className="w-4 h-4 text-pink-200" />
+          </a>
+        </div>
+
+        {/* 2대 탐색 선택지 (처음부터 배우기 vs 전체 문서) */}
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2 max-w-xl mx-auto">
           <Link
             href="/wiki/beginner/step-01-game-intro"
-            className="w-full sm:w-auto flex-1 flex items-center justify-center gap-2.5 px-6 py-4 rounded-2xl bg-brand-600 hover:bg-brand-700 text-white font-extrabold text-base transition-all shadow-md hover:shadow-lg group"
+            className="w-full sm:w-auto flex-1 flex items-center justify-center gap-2.5 px-6 py-4 rounded-2xl bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white font-extrabold text-base transition-all shadow-md hover:shadow-lg hover:scale-102 group"
           >
-            <GraduationCap className="w-5 h-5 text-brand-200 group-hover:scale-110 transition-transform" />
+            <GraduationCap className="w-5 h-5 text-pink-200 group-hover:scale-110 transition-transform" />
             <span>처음부터 게임 배우기</span>
-            <ArrowRight className="w-4 h-4 text-brand-200 group-hover:translate-x-1 transition-transform" />
+            <ArrowRight className="w-4 h-4 text-pink-200 group-hover:translate-x-1 transition-transform" />
           </Link>
 
           <Link
             href="/wiki"
-            className="w-full sm:w-auto flex-1 flex items-center justify-center gap-2.5 px-6 py-4 rounded-2xl bg-white hover:bg-brand-50/70 text-wiki-text hover:text-brand-700 font-extrabold text-base border-2 border-brand-200 transition-all shadow-xs"
+            className="w-full sm:w-auto flex-1 flex items-center justify-center gap-2.5 px-6 py-4 rounded-2xl bg-white hover:bg-pink-50/50 text-wiki-text hover:text-purple-700 font-extrabold text-base border-2 border-purple-200 transition-all shadow-xs"
           >
-            <BookOpen className="w-5 h-5 text-brand-600" />
+            <BookOpen className="w-5 h-5 text-purple-600" />
             <span>전체 위키 문서 보기</span>
           </Link>
         </div>
       </section>
 
       {/* 2. 두 번째 영역 — 게임은 이렇게 진행됩니다 (흐름도) */}
-      <section className="rounded-2xl border border-wiki-border bg-white p-6 sm:p-8 shadow-xs space-y-4">
-        <div className="border-b border-wiki-border pb-3">
-          <h2 className="text-lg sm:text-xl font-extrabold text-wiki-text flex items-center gap-2">
-            <span className="w-2.5 h-2.5 rounded-full bg-brand-600" />
-            <span>게임은 이렇게 진행됩니다</span>
-          </h2>
-          <p className="text-xs sm:text-sm text-wiki-secondary mt-1">
-            창단부터 리그 우승, 그리고 다음 시즌으로 이어지는 전체 게임의 기본 순서도입니다. 단계를 누르면 해당 가이드로 이동합니다.
-          </p>
+      <section className="rounded-2xl border border-wiki-border bg-white/90 backdrop-blur-xs p-6 sm:p-8 shadow-xs space-y-4">
+        <div className="border-b border-wiki-border pb-3 flex items-center justify-between">
+          <div>
+            <h2 className="text-lg sm:text-xl font-extrabold text-wiki-text flex items-center gap-2">
+              <Sparkles className="w-4 h-4 text-pink-500" />
+              <span>게임은 이렇게 진행됩니다</span>
+            </h2>
+            <p className="text-xs sm:text-sm text-wiki-secondary mt-1">
+              창단부터 리그 우승, 그리고 다음 시즌으로 이어지는 전체 게임의 기본 순서도입니다. 단계를 누르면 해당 가이드로 이동합니다.
+            </p>
+          </div>
+          <Heart className="w-4 h-4 text-pink-400 fill-pink-200 hidden sm:inline-block" />
         </div>
 
         {/* 가로 스크롤 가능한 단계형 순서도 바 */}
         <div className="overflow-x-auto pb-2 pt-2">
-          <div className="flex items-center min-w-[760px] justify-between gap-1 text-xs">
+          <div className="flex items-center min-w-[760px] justify-between gap-1.5 text-xs">
             {flowSteps.map((step, idx) => (
               <React.Fragment key={step.label}>
                 <Link
                   href={`/wiki/${step.slug}`}
-                  className="px-3 py-2 rounded-xl bg-brand-50/70 hover:bg-brand-600 hover:text-white border border-brand-200/80 font-bold text-wiki-text transition-all text-center flex-1 shadow-2xs whitespace-nowrap"
+                  className="px-3 py-2.5 rounded-xl bg-gradient-to-b from-purple-50/80 to-pink-50/50 hover:from-pink-500 hover:to-purple-600 hover:text-white border border-pink-200/70 font-bold text-wiki-text transition-all text-center flex-1 shadow-2xs whitespace-nowrap hover:scale-102"
                 >
                   {step.label}
                 </Link>
                 {idx < flowSteps.length - 1 && (
-                  <ChevronRight className="w-4 h-4 text-brand-300 flex-shrink-0" />
+                  <ChevronRight className="w-4 h-4 text-pink-300 flex-shrink-0" />
                 )}
               </React.Fragment>
             ))}
@@ -189,38 +230,38 @@ export default function HomePage() {
 
       {/* 3. 세 번째 영역 — 게임 플레이 순서별 12단계 가이드 (핵심 메인 영역) */}
       <section className="space-y-5">
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2 border-b-2 border-brand-200 pb-3">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2 border-b-2 border-pink-200 pb-3">
           <div>
-            <div className="text-xs font-bold uppercase tracking-wider text-brand-600 flex items-center gap-1.5 mb-1">
-              <GraduationCap className="w-4 h-4" />
+            <div className="text-xs font-bold uppercase tracking-wider text-pink-600 flex items-center gap-1.5 mb-1">
+              <Star className="w-3.5 h-3.5 text-amber-400 fill-amber-300" />
               <span>초보자 완전 정복</span>
             </div>
-            <h2 className="text-xl sm:text-2xl font-extrabold text-wiki-text">
-              게임 플레이 순서별 12단계 가이드
+            <h2 className="text-xl sm:text-2xl font-extrabold text-wiki-text flex items-center gap-2">
+              <span>게임 플레이 순서별 12단계 가이드</span>
             </h2>
           </div>
           <span className="text-xs text-wiki-secondary">
-            누구나 1단계부터 따라 읽으면 게임을 마스터할 수 있습니다.
+            1단계부터 차근차근 따라 읽으면 누구나 매니저가 될 수 있습니다.
           </span>
         </div>
 
-        {/* 12단계 단정한 타임라인 목록형 UI */}
+        {/* 12단계 타임라인 목록형 카드 (마법소녀 파스텔 뱃지) */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {guideSteps.map((step) => (
             <Link
               key={step.num}
               href={`/wiki/${step.slug}`}
-              className="p-5 rounded-2xl border border-wiki-border bg-white hover:border-brand-400 hover:bg-brand-50/30 transition-all shadow-xs hover:shadow-sm group flex items-start gap-4"
+              className="p-5 rounded-2xl border border-wiki-border bg-white hover:border-pink-300 hover:bg-gradient-to-br hover:from-pink-50/40 hover:to-purple-50/30 transition-all shadow-xs hover:shadow-sm group flex items-start gap-4"
             >
-              <div className="w-12 h-12 rounded-xl bg-brand-50 border border-brand-200 flex items-center justify-center text-brand-700 font-extrabold text-base font-mono flex-shrink-0 group-hover:bg-brand-600 group-hover:text-white transition-colors">
+              <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-pink-100 to-purple-100 border border-pink-200 flex items-center justify-center text-purple-700 font-extrabold text-base font-mono flex-shrink-0 group-hover:from-pink-500 group-hover:to-purple-600 group-hover:text-white transition-all shadow-2xs">
                 {step.num}
               </div>
               <div className="flex-1 min-w-0 space-y-1">
                 <div className="flex items-center justify-between gap-2">
-                  <h3 className="font-extrabold text-sm sm:text-base text-wiki-text group-hover:text-brand-600 transition-colors truncate">
+                  <h3 className="font-extrabold text-sm sm:text-base text-wiki-text group-hover:text-pink-600 transition-colors truncate">
                     {step.title}
                   </h3>
-                  <span className="text-xs font-semibold text-brand-600 flex items-center gap-0.5 flex-shrink-0 group-hover:translate-x-0.5 transition-transform">
+                  <span className="text-xs font-semibold text-pink-600 flex items-center gap-0.5 flex-shrink-0 group-hover:translate-x-0.5 transition-transform">
                     <span>읽기</span>
                     <ChevronRight className="w-3.5 h-3.5" />
                   </span>
@@ -235,11 +276,11 @@ export default function HomePage() {
       </section>
 
       {/* 4. 네 번째 영역 — 필요한 규칙 찾아보기 (기존 8개 위키 카테고리) */}
-      <section className="rounded-2xl border border-wiki-border bg-white p-6 sm:p-8 shadow-xs space-y-6">
+      <section className="rounded-2xl border border-wiki-border bg-white/90 backdrop-blur-xs p-6 sm:p-8 shadow-xs space-y-6">
         <div className="flex items-center justify-between pb-3 border-b border-wiki-border">
           <div>
             <h2 className="text-lg sm:text-xl font-extrabold text-wiki-text flex items-center gap-2">
-              <BookOpen className="w-5 h-5 text-brand-600" />
+              <BookOpen className="w-5 h-5 text-purple-600" />
               <span>필요한 상세 규칙 찾아보기</span>
             </h2>
             <p className="text-xs sm:text-sm text-wiki-secondary mt-1">
@@ -248,7 +289,7 @@ export default function HomePage() {
           </div>
           <Link
             href="/wiki"
-            className="text-xs font-bold text-brand-600 hover:underline flex items-center gap-1 flex-shrink-0"
+            className="text-xs font-bold text-purple-600 hover:text-pink-600 hover:underline flex items-center gap-1 flex-shrink-0"
           >
             <span>전체 문서</span>
             <ArrowRight className="w-3.5 h-3.5" />
@@ -260,11 +301,11 @@ export default function HomePage() {
             <Link
               key={category.id}
               href={`/wiki#category-${category.id}`}
-              className="p-4 rounded-xl border border-wiki-border/80 bg-wiki-bg/40 hover:bg-brand-50/60 hover:border-brand-300 transition-all space-y-1.5 group"
+              className="p-4 rounded-xl border border-wiki-border/80 bg-wiki-bg/40 hover:bg-gradient-to-br hover:from-pink-50/50 hover:to-purple-50/50 hover:border-pink-300 transition-all space-y-1.5 group"
             >
-              <div className="font-extrabold text-xs sm:text-sm text-wiki-text group-hover:text-brand-600 transition-colors flex items-center justify-between">
+              <div className="font-extrabold text-xs sm:text-sm text-wiki-text group-hover:text-purple-700 transition-colors flex items-center justify-between">
                 <span>{category.name}</span>
-                <ChevronRight className="w-3.5 h-3.5 text-wiki-muted group-hover:text-brand-600" />
+                <ChevronRight className="w-3.5 h-3.5 text-wiki-muted group-hover:text-pink-600" />
               </div>
               <p className="text-[11px] text-wiki-secondary line-clamp-2 leading-relaxed">
                 {category.description}
@@ -274,16 +315,16 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 5. 다섯 번째 영역 — 최근 수정된 문서 (5개 간결히 표시) */}
+      {/* 5. 다섯 번째 영역 — 최근 수정된 문서 */}
       <section className="rounded-2xl border border-wiki-border bg-white p-5 sm:p-6 shadow-xs space-y-3">
         <div className="flex items-center justify-between pb-2 border-b border-wiki-border">
           <div className="flex items-center gap-2">
-            <Clock className="w-4 h-4 text-brand-600" />
+            <Clock className="w-4 h-4 text-purple-600" />
             <h2 className="font-bold text-sm sm:text-base text-wiki-text">최근 수정된 문서</h2>
           </div>
           <Link
             href="/wiki"
-            className="text-xs text-brand-600 hover:underline font-semibold"
+            className="text-xs text-purple-600 hover:text-pink-600 hover:underline font-semibold"
           >
             전체 목록 보기 →
           </Link>
@@ -293,15 +334,15 @@ export default function HomePage() {
           {recentDocs.map((doc) => (
             <div
               key={doc.slug}
-              className="py-2.5 flex items-center justify-between gap-4 hover:bg-brand-50/30 px-2 rounded-lg transition-colors"
+              className="py-2.5 flex items-center justify-between gap-4 hover:bg-pink-50/30 px-2 rounded-lg transition-colors"
             >
               <div className="flex items-center gap-2 min-w-0">
-                <span className="text-[10px] px-2 py-0.5 rounded bg-brand-50 text-brand-700 font-semibold border border-brand-100 flex-shrink-0">
+                <span className="text-[10px] px-2 py-0.5 rounded-full bg-pink-50 text-pink-700 font-semibold border border-pink-200 flex-shrink-0">
                   {doc.category}
                 </span>
                 <Link
                   href={`/wiki/${doc.slug}`}
-                  className="font-bold text-wiki-text hover:text-brand-600 hover:underline truncate"
+                  className="font-bold text-wiki-text hover:text-pink-600 hover:underline truncate"
                 >
                   {doc.title}
                 </Link>
@@ -315,13 +356,14 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 하단 보조 정보: 통계 및 검색 단축키 */}
+      {/* 하단 보조 정보: 다운로드 재안내 및 단축키 */}
       <footer className="pt-4 border-t border-wiki-border text-xs text-wiki-secondary flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
-        <div>
-          <span>IDOL Manager 공식 게임 정보 및 입문 공략 위키 백과사전 (총 {allDocs.length}개 문서 수록)</span>
+        <div className="flex items-center gap-2">
+          <Sparkles className="w-3.5 h-3.5 text-pink-500" />
+          <span>IDOL Manager Wiki (총 {allDocs.length}개 문서 수록) · 게임 클라이언트: <a href={DOWNLOAD_URL} target="_blank" rel="noopener noreferrer" className="text-pink-600 font-bold hover:underline">v0.30.3 다운로드</a></span>
         </div>
         <div className="font-mono text-[11px] text-wiki-muted">
-          <span>문서 검색 단축키: <kbd className="px-1.5 py-0.5 rounded bg-white border border-wiki-border text-wiki-text">Ctrl + K</kbd></span>
+          <span>문서 검색: <kbd className="px-1.5 py-0.5 rounded bg-white border border-wiki-border text-wiki-text">Ctrl + K</kbd></span>
         </div>
       </footer>
     </main>

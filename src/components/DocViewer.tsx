@@ -61,11 +61,11 @@ export function DocViewer({ doc }: DocViewerProps) {
             onClick={() => setActiveTab("content")}
             className={`flex items-center gap-1.5 px-3 py-1.5 rounded-t-lg font-medium transition-colors ${
               activeTab === "content"
-                ? "bg-brand-50 text-brand-700 font-bold border-b-2 border-brand-600"
-                : "text-wiki-secondary hover:text-wiki-text hover:bg-brand-50/50"
+                ? "bg-pink-50 text-pink-700 font-bold border-b-2 border-pink-500"
+                : "text-wiki-secondary hover:text-wiki-text hover:bg-pink-50/40"
             }`}
           >
-            <FileText className="w-3.5 h-3.5 text-brand-600" />
+            <FileText className="w-3.5 h-3.5 text-pink-600" />
             <span>문서</span>
           </button>
 
@@ -74,13 +74,13 @@ export function DocViewer({ doc }: DocViewerProps) {
             onClick={() => setActiveTab("backlinks")}
             className={`flex items-center gap-1.5 px-3 py-1.5 rounded-t-lg font-medium transition-colors ${
               activeTab === "backlinks"
-                ? "bg-brand-50 text-brand-700 font-bold border-b-2 border-brand-600"
-                : "text-wiki-secondary hover:text-wiki-text hover:bg-brand-50/50"
+                ? "bg-purple-50 text-purple-700 font-bold border-b-2 border-purple-600"
+                : "text-wiki-secondary hover:text-wiki-text hover:bg-purple-50/40"
             }`}
           >
-            <Link2 className="w-3.5 h-3.5 text-brand-600" />
+            <Link2 className="w-3.5 h-3.5 text-purple-600" />
             <span>역링크</span>
-            <span className="ml-0.5 px-1.5 py-0.2 rounded-full text-[10px] bg-brand-100 text-brand-700 font-mono">
+            <span className="ml-0.5 px-1.5 py-0.2 rounded-full text-[10px] bg-purple-100 text-purple-700 font-mono font-bold">
               {doc.backlinks.length}
             </span>
           </button>
@@ -90,11 +90,11 @@ export function DocViewer({ doc }: DocViewerProps) {
             onClick={() => setActiveTab("raw")}
             className={`flex items-center gap-1.5 px-3 py-1.5 rounded-t-lg font-medium transition-colors ${
               activeTab === "raw"
-                ? "bg-brand-50 text-brand-700 font-bold border-b-2 border-brand-600"
-                : "text-wiki-secondary hover:text-wiki-text hover:bg-brand-50/50"
+                ? "bg-pink-50 text-pink-700 font-bold border-b-2 border-pink-500"
+                : "text-wiki-secondary hover:text-wiki-text hover:bg-pink-50/40"
             }`}
           >
-            <Code2 className="w-3.5 h-3.5 text-brand-600" />
+            <Code2 className="w-3.5 h-3.5 text-pink-600" />
             <span>원본 보기</span>
           </button>
         </div>
