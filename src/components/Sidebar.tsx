@@ -13,15 +13,13 @@ import {
   Award,
   HelpCircle,
   ChevronDown,
-  Sparkles,
   BookOpen,
-  ArrowRight,
+  Home,
   GraduationCap,
 } from "lucide-react";
 import { CATEGORIES } from "@/lib/categories";
 
 const iconMap: Record<string, React.ElementType> = {
-  Sparkles,
   Compass,
   Calendar,
   Users,
@@ -155,53 +153,51 @@ export function Sidebar({ className = "" }: { className?: string }) {
     }));
   };
 
-  const isBeginnerDoc = pathname.includes("/wiki/beginner");
-
   return (
     <aside
-      className={`w-64 flex-shrink-0 select-none pb-12 ${className}`}
-      aria-label="위키 목차 사이드바"
+      className={`w-60 flex-shrink-0 select-none pb-12 ${className}`}
+      aria-label="위키 사이드바"
     >
-      <div className="sticky top-20 max-h-[calc(100vh-6rem)] overflow-y-auto pr-2 space-y-4">
-        {/* 상단 1: 위키 대문 및 전체 색인 퀵 링크 */}
-        <div className="bg-white rounded-xl border border-wiki-border p-3 shadow-xs space-y-1">
+      <div className="sticky top-18 max-h-[calc(100vh-5rem)] overflow-y-auto pr-1 space-y-3 text-xs">
+        {/* 상단 1: 빠른 메뉴 */}
+        <div className="bg-white border border-[#DDD8E6] rounded p-2.5 shadow-2xs space-y-1">
           <Link
             href="/"
-            className={`flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-xs font-semibold transition-colors ${
+            className={`flex items-center gap-2 px-2 py-1.5 rounded transition-colors ${
               pathname === "/"
-                ? "bg-brand-600 text-white shadow-xs"
-                : "text-wiki-text hover:bg-brand-50 hover:text-brand-600"
+                ? "bg-[#58307E] text-white font-bold"
+                : "text-[#212529] hover:bg-[#F3EFF8] hover:text-[#58307E]"
             }`}
           >
-            <Sparkles className="w-3.5 h-3.5" />
-            <span>위키 대문 (홈)</span>
+            <Home className="w-3.5 h-3.5" />
+            <span>대문 (홈)</span>
           </Link>
           <Link
             href="/wiki"
-            className={`flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-xs font-semibold transition-colors ${
+            className={`flex items-center gap-2 px-2 py-1.5 rounded transition-colors ${
               pathname === "/wiki"
-                ? "bg-brand-600 text-white shadow-xs"
-                : "text-wiki-text hover:bg-brand-50 hover:text-brand-600"
+                ? "bg-[#58307E] text-white font-bold"
+                : "text-[#212529] hover:bg-[#F3EFF8] hover:text-[#58307E]"
             }`}
           >
             <Compass className="w-3.5 h-3.5" />
-            <span>전체 위키 문서 색인</span>
+            <span>전체 문서 색인</span>
           </Link>
         </div>
 
-        {/* 상단 2: [처음 시작하기] 게임 진행 순서별 12단계 가이드 */}
-        <div className="bg-white rounded-xl border border-brand-200/80 p-3 shadow-xs space-y-2.5">
-          <div className="flex items-center justify-between px-1">
-            <span className="text-xs font-extrabold text-brand-700 flex items-center gap-1.5">
-              <GraduationCap className="w-4 h-4 text-brand-600" />
-              <span>처음 시작하기 (12단계)</span>
+        {/* 상단 2: [처음 시작하기] 12단계 가이드 */}
+        <div className="bg-white border border-[#DDD8E6] rounded p-2.5 shadow-2xs space-y-2">
+          <div className="flex items-center justify-between pb-1.5 border-b border-[#EBE7F2] px-1 font-bold text-[#2A1740]">
+            <span className="flex items-center gap-1.5">
+              <GraduationCap className="w-3.5 h-3.5 text-[#58307E]" />
+              <span>플레이 순서 가이드</span>
             </span>
-            <span className="text-[10px] px-1.5 py-0.2 rounded-full bg-brand-100 text-brand-700 font-mono font-bold">
-              입문
+            <span className="text-[10px] text-[#553C9A] bg-[#F1EDF6] px-1.5 py-0.2 rounded font-mono">
+              12단계
             </span>
           </div>
 
-          <nav className="space-y-0.5 text-xs">
+          <nav className="space-y-0.5">
             {BEGINNER_STEPS.map((item) => {
               const href = `/wiki/${item.slug}`;
               const isActive = pathname === href;
@@ -210,31 +206,30 @@ export function Sidebar({ className = "" }: { className?: string }) {
                 <Link
                   key={item.slug}
                   href={href}
-                  className={`flex items-center justify-between px-2.5 py-1.5 rounded-lg font-medium transition-all ${
+                  className={`block px-2 py-1.5 rounded transition-colors truncate ${
                     isActive
-                      ? "bg-brand-600 text-white font-bold shadow-2xs"
-                      : "text-wiki-text hover:bg-brand-50 hover:text-brand-700"
+                      ? "bg-[#58307E] text-white font-bold"
+                      : "text-[#4A5568] hover:bg-[#F5F2F9] hover:text-[#212529]"
                   }`}
                 >
-                  <span className="truncate">{item.title}</span>
-                  {isActive && <ArrowRight className="w-3 h-3 flex-shrink-0 ml-1 text-brand-200" />}
+                  {item.title}
                 </Link>
               );
             })}
           </nav>
         </div>
 
-        {/* 하단: [전체 위키] 기존 8개 카테고리 접기/펼치기 */}
-        <div className="bg-white rounded-xl border border-wiki-border p-3 shadow-xs space-y-2">
-          <div className="flex items-center justify-between px-1 pb-1 border-b border-wiki-border/60">
-            <span className="text-xs font-bold text-wiki-secondary flex items-center gap-1.5">
-              <BookOpen className="w-3.5 h-3.5 text-wiki-muted" />
-              <span>전체 위키 (상세 백과)</span>
+        {/* 하단: [전체 위키 백과] 8개 카테고리 */}
+        <div className="bg-white border border-[#DDD8E6] rounded p-2.5 shadow-2xs space-y-1.5">
+          <div className="flex items-center justify-between pb-1 border-b border-[#EBE7F2] px-1 font-bold text-[#5A5468]">
+            <span className="flex items-center gap-1.5">
+              <BookOpen className="w-3.5 h-3.5" />
+              <span>분야별 문서</span>
             </span>
-            <span className="text-[10px] text-wiki-muted font-mono">8개 분류</span>
+            <span className="text-[10px] font-mono text-[#A0AEC0]">8개 분류</span>
           </div>
 
-          <div className="space-y-1 pt-1">
+          <div className="space-y-0.5 pt-1">
             {CATEGORIES.filter((c) => c.id !== "beginner").map((cat) => {
               const Icon = iconMap[cat.icon] || Compass;
               const isOpen = openCategories[cat.id] ?? false;
@@ -245,21 +240,21 @@ export function Sidebar({ className = "" }: { className?: string }) {
                   <button
                     type="button"
                     onClick={() => toggleCategory(cat.id)}
-                    className="w-full flex items-center justify-between px-2 py-1.5 rounded-lg text-xs font-semibold text-wiki-text hover:bg-brand-50 hover:text-brand-600 transition-colors"
+                    className="w-full flex items-center justify-between px-2 py-1.5 rounded text-[#212529] hover:bg-[#F5F2F9] hover:text-[#58307E] transition-colors font-medium"
                   >
-                    <div className="flex items-center gap-2">
-                      <Icon className="w-3.5 h-3.5 text-brand-500" />
+                    <div className="flex items-center gap-1.5">
+                      <Icon className="w-3.5 h-3.5 text-[#58307E]" />
                       <span>{cat.name}</span>
                     </div>
                     <ChevronDown
-                      className={`w-3.5 h-3.5 text-wiki-muted transition-transform duration-200 ${
+                      className={`w-3.5 h-3.5 text-[#A0AEC0] transition-transform duration-150 ${
                         isOpen ? "rotate-0" : "-rotate-90"
                       }`}
                     />
                   </button>
 
                   {isOpen && navGroup && (
-                    <div className="pl-4 pr-1 py-0.5 space-y-0.5 border-l-2 border-brand-100 ml-3">
+                    <div className="pl-3 py-0.5 space-y-0.5 border-l-2 border-[#EBE7F2] ml-2.5">
                       {navGroup.items.map((item) => {
                         const href = `/wiki/${item.slug}`;
                         const isActive = pathname === href;
@@ -270,8 +265,8 @@ export function Sidebar({ className = "" }: { className?: string }) {
                             href={href}
                             className={`block px-2 py-1 rounded text-[11px] truncate transition-colors ${
                               isActive
-                                ? "text-brand-700 font-bold bg-brand-50"
-                                : "text-wiki-secondary hover:text-brand-600 hover:bg-brand-50/50"
+                                ? "text-[#58307E] font-bold bg-[#F3EFF8]"
+                                : "text-[#718096] hover:text-[#212529] hover:bg-[#F8F7FA]"
                             }`}
                           >
                             {item.title}

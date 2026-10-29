@@ -1,226 +1,201 @@
 import React from "react";
 import Link from "next/link";
 import {
-  Sparkles,
-  BookOpen,
-  Calendar,
-  Clock,
-  ArrowRight,
-  GraduationCap,
-  ChevronRight,
-  Compass,
-  Play,
-  Users,
-  Trophy,
-  Building2,
-  HelpCircle,
-  Award,
   Download,
-  Star,
-  Heart,
+  BookOpen,
+  ArrowRight,
+  Clock,
+  ChevronRight,
   ExternalLink,
+  HelpCircle,
+  FileText,
+  AlertCircle,
 } from "lucide-react";
 import { getAllDocs } from "@/lib/wiki";
 import { CATEGORIES } from "@/lib/categories";
 import { StatusBadge } from "@/components/StatusBadge";
-import { BEGINNER_STEPS } from "@/components/Sidebar";
 
 export default function HomePage() {
   const allDocs = getAllDocs();
-  const recentDocs = allDocs.slice(0, 5);
+  const recentDocs = allDocs.slice(0, 6);
 
   const DOWNLOAD_URL = "https://drive.google.com/file/d/1lHliyWBKve_eaAQuCoKWbbJf33lBydsm/view?usp=sharing";
 
-  // 12단계 가이드 상세 메타데이터
+  // 12단계 가이드 목록
   const guideSteps = [
     {
       num: "01",
       slug: "beginner/step-01-game-intro",
       title: "IDOL Manager는 어떤 게임인가?",
-      desc: "아이돌 기획사 매니저가 되어 10개 구단 중 리그 우승을 노리는 경영 시뮬레이션의 전체 목표와 진행 방식",
+      desc: "10개 기획사 경쟁 구조, 최종 우승 목표 및 하루 단위 진행 방식",
     },
     {
       num: "02",
       slug: "beginner/step-02-new-game",
       title: "게임 실행과 새 게임 시작",
-      desc: "2개 독립 세이브 슬롯의 역할, 10개 참가 기획사 중 1곳 선택 및 10억 원 시작 자금",
+      desc: "2개 세이브 슬롯 운영, 10개 기획사 중 1곳 선택 및 10억 원 시작 자금",
     },
     {
       num: "03",
       slug: "beginner/step-03-founding-draft",
       title: "최초 창단 드래프트",
-      desc: "창단 첫날 월요일, 200명 후보 중 160명을 16라운드 스네이크 방식으로 공평하게 지명하는 법",
+      desc: "창단 월요일 200명 중 160명을 선발하는 16라운드 스네이크 드래프트",
     },
     {
       num: "04",
       slug: "beginner/step-04-negotiation",
       title: "지명 선수 계약 협상",
-      desc: "창단 화요일, 상위 1~3라운드 에이스 3명과의 1:1 개별 협상 요령과 하위 13명 자동 계약",
+      desc: "창단 화요일 상위 3명과의 1:1 개별 협상 및 4~16라운드 13명 자동 계약",
     },
     {
       num: "05",
       slug: "beginner/step-05-trainee-and-fa",
       title: "연습생 신청과 FA 영입",
-      desc: "수·금요일 신청, 목·토요일 무작위 균등 추첨, 연봉 0원의 알짜 연습생과 미계약 FA 영입 일정",
+      desc: "수·금 신청, 목·토 무작위 추첨, 연봉 0원의 자유계약 연습생과 FA 시장",
     },
     {
       num: "06",
       slug: "beginner/step-06-roster-and-opening",
       title: "최초 선수단 편성과 개막",
-      desc: "다음 주 월요일 주전 1군(5명)과 2군(최대 11명) 확정, 접전을 뒤집는 리더 지정 및 수요일 개막전",
+      desc: "다음 주 월요일 주전 1군(5명)과 2군(최대 11명) 확정, 리더 지정 및 수요일 개막",
     },
     {
       num: "07",
       slug: "beginner/step-07-weekly-routine",
       title: "매주 무엇을 해야 하나?",
-      desc: "월요일(시장 및 건강 점검) → 화요일(휴식) → 수~일요일(5연전 경기)로 반복되는 주간 플레이 루틴",
+      desc: "월(시장/선수단) → 화(휴식) → 수~일(경기 5연전) 주간 플레이 사이클",
     },
     {
       num: "08",
       slug: "beginner/step-08-attributes-and-growth",
       title: "아이돌 능력치와 선수 육성",
-      desc: "8대 재능, 당장의 실력(CA)과 숨겨진 잠재력(PA), 건강 상한 90 및 피로·부상 관리의 쉬운 이해",
+      desc: "공식 8대 능력치, CA/PA의 개념, 건강 상한 90 및 주간 성장과 부상 관리",
     },
     {
       num: "09",
       slug: "beginner/step-09-matches-and-contents",
       title: "경기는 어떻게 진행되는가?",
-      desc: "음악방송, 예능, 광고 등에서 벌어지는 60회 능력치 판정, 리더십 보너스와 연장전 데스매치",
+      desc: "30종 콘텐츠 60회 능력치 판정, 리더십 2회 보너스, 동점 데스매치 연장전",
     },
     {
       num: "10",
       slug: "beginner/step-10-midseason-management",
       title: "시즌 중 선수단과 기획사 운영",
-      desc: "시즌 중 트레이드와 FA 보강, 4주마다 나가는 정기 급여와 주간 후원금으로 흑자 경영 유지하기",
+      desc: "월요일 시장(FA·트레이드·방출), 매주 1,000만 원 후원금과 4주 급여 정산",
     },
     {
       num: "11",
       slug: "beginner/step-11-postseason-and-awards",
       title: "정규 시즌 종료와 포스트시즌",
-      desc: "정규 24주 최종 순위 결정, 상위 4팀의 가을 플레이오프 토너먼트, 11개 부문 시즌 개인 시상식",
+      desc: "정규 24주 순위 결정, 동률 단판전, 상위 4팀 PO 3주 및 시즌 개인상 11개",
     },
     {
       num: "12",
       slug: "beginner/step-12-offseason-next-season",
       title: "비시즌과 다음 시즌 준비",
-      desc: "비시즌 4주간의 재계약과 은퇴, 70명 신인 유입과 연간 3라운드 통합 드래프트, 다음 시즌의 순환",
+      desc: "비시즌 4주 재계약, 신규 70명 유입과 매년 3R 드래프트, 다음 시즌 순환",
     },
   ];
 
-  // 게임 흐름 순서도 (클릭 시 이동)
+  // 게임 흐름 순서도
   const flowSteps = [
     { label: "1. 게임 시작", slug: "beginner/step-02-new-game" },
     { label: "2. 기획사 선택", slug: "beginner/step-02-new-game" },
-    { label: "3. 창단 드래프트", slug: "beginner/step-03-founding-draft" },
-    { label: "4. 계약 및 영입", slug: "beginner/step-04-negotiation" },
-    { label: "5. 선수단 구성", slug: "beginner/step-06-roster-and-opening" },
-    { label: "6. 정규 리그", slug: "beginner/step-07-weekly-routine" },
-    { label: "7. 포스트시즌", slug: "beginner/step-11-postseason-and-awards" },
-    { label: "8. 비시즌", slug: "beginner/step-12-offseason-next-season" },
-    { label: "9. 다음 시즌", slug: "beginner/step-12-offseason-next-season" },
+    { label: "3. 창단 16R 드래프트", slug: "beginner/step-03-founding-draft" },
+    { label: "4. 계약 및 연습생", slug: "beginner/step-04-negotiation" },
+    { label: "5. 선수단 편성 (1군 5명)", slug: "beginner/step-06-roster-and-opening" },
+    { label: "6. 정규 리그 (585경기)", slug: "beginner/step-07-weekly-routine" },
+    { label: "7. 포스트시즌 (상위 4팀)", slug: "beginner/step-11-postseason-and-awards" },
+    { label: "8. 비시즌 4주 (3R 드래프트)", slug: "beginner/step-12-offseason-next-season" },
+    { label: "9. 다음 시즌 순환", slug: "beginner/step-12-offseason-next-season" },
   ];
 
   return (
-    <main className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
-      {/* 1. 상단 마법소녀 히어로 & 다운로드 배너 */}
-      <section className="text-center space-y-6 pt-4 pb-2 relative">
-        {/* 마법소녀 별빛 장식 뱃지 */}
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gradient-to-r from-pink-50 via-purple-50 to-pink-50 border border-pink-200 text-pink-700 text-xs font-bold tracking-wide shadow-xs magic-float">
-          <Sparkles className="w-4 h-4 text-pink-500 magic-twinkle" />
-          <span>MAGICAL IDOL MANAGER OFFICIAL WIKI</span>
-          <Star className="w-3.5 h-3.5 text-amber-400 fill-amber-300" />
-        </div>
-
-        <div className="space-y-3 max-w-3xl mx-auto">
-          <h1 className="text-3xl sm:text-5xl font-black text-wiki-text tracking-tight">
-            IDOL Manager <span className="bg-gradient-to-r from-pink-500 via-fuchsia-500 to-purple-600 bg-clip-text text-transparent">Wiki</span>
-          </h1>
-          <p className="text-base sm:text-lg text-wiki-secondary leading-relaxed font-normal">
-            아이돌 기획사를 운영하고, 마법 같은 별빛 선수를 영입하여 리그 우승에 도전하는 경영 시뮬레이션 게임의 공식 가이드입니다.
-          </p>
-        </div>
-
-        {/* 🎮 공식 게임 다운로드 스페셜 배너 (마법소녀 카드) */}
-        <div className="max-w-xl mx-auto p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-pink-500/10 via-purple-500/10 to-pink-500/10 border-2 border-pink-200/90 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4 text-left">
-          <div className="flex items-center gap-3.5">
-            <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-pink-500 to-purple-600 flex items-center justify-center text-white shadow-md flex-shrink-0">
-              <Download className="w-6 h-6 text-white" />
-            </div>
-            <div>
-              <div className="flex items-center gap-2">
-                <span className="font-extrabold text-sm sm:text-base text-wiki-text">
-                  게임 클라이언트 다운로드
-                </span>
-                <span className="px-2 py-0.5 rounded-full bg-pink-100 text-pink-700 text-[11px] font-bold font-mono">
-                  v0.30.3
-                </span>
-              </div>
-              <p className="text-xs text-wiki-secondary mt-0.5">
-                IDOL_Manager-0.30.3.zip (Google Drive 공식 배포)
-              </p>
-            </div>
+    <main className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
+      {/* 1. 나무위키 대문 상단 환영문 & 다운로드 박스 */}
+      <section className="bg-white border border-[#DDD8E6] rounded p-5 sm:p-6 shadow-2xs space-y-4">
+        <div className="border-b border-[#EBE7F2] pb-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+          <div>
+            <h1 className="text-xl sm:text-2xl font-bold text-[#1F192C] tracking-tight">
+              IDOL Manager Wiki에 오신 것을 환영합니다.
+            </h1>
+            <p className="text-xs sm:text-sm text-[#5A5468] mt-1">
+              IDOL Manager는 아이돌 기획사를 경영하여 리그 우승에 도전하는 Windows PC용 시뮬레이션 게임입니다.
+            </p>
           </div>
+          <div className="flex items-center gap-2 text-xs">
+            <span className="px-2 py-1 bg-[#F1EDF6] text-[#4A2E6D] rounded font-mono">
+              총 {allDocs.length}개 문서
+            </span>
+          </div>
+        </div>
 
+        {/* 최신 클라이언트 다운로드 안내 박스 */}
+        <div className="p-3.5 bg-[#FAF9FD] border border-[#DDD8E6] rounded flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs">
+          <div className="space-y-1">
+            <div className="font-bold text-[#212529] flex items-center gap-2">
+              <span className="px-1.5 py-0.5 bg-emerald-100 text-emerald-800 rounded font-semibold text-[11px]">
+                최신 배포판
+              </span>
+              <span>IDOL_Manager-0.30.3.zip</span>
+            </div>
+            <p className="text-[#5A5468]">
+              Google Drive 공식 저장소를 통해 게임 클라이언트를 즉시 다운로드하여 플레이할 수 있습니다.
+            </p>
+          </div>
           <a
             href={DOWNLOAD_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-gradient-to-r from-pink-500 via-fuchsia-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-md hover:shadow-lg hover:scale-102 transition-all cursor-pointer whitespace-nowrap"
+            className="flex items-center gap-1.5 px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded transition-colors shadow-2xs whitespace-nowrap self-stretch sm:self-auto justify-center"
           >
-            <span>지금 다운로드</span>
-            <ExternalLink className="w-4 h-4 text-pink-200" />
+            <Download className="w-3.5 h-3.5" />
+            <span>클라이언트 다운로드 (v0.30.3)</span>
           </a>
         </div>
 
-        {/* 2대 탐색 선택지 (처음부터 배우기 vs 전체 문서) */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2 max-w-xl mx-auto">
+        {/* 2대 탐색 퀵 링크 */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1 text-xs">
           <Link
             href="/wiki/beginner/step-01-game-intro"
-            className="w-full sm:w-auto flex-1 flex items-center justify-center gap-2.5 px-6 py-4 rounded-2xl bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white font-extrabold text-base transition-all shadow-md hover:shadow-lg hover:scale-102 group"
+            className="p-3 bg-[#F1EDF6] hover:bg-[#EBE5F3] border border-[#DDD8E6] rounded flex items-center justify-between font-bold text-[#3E205E] transition-colors"
           >
-            <GraduationCap className="w-5 h-5 text-pink-200 group-hover:scale-110 transition-transform" />
-            <span>처음부터 게임 배우기</span>
-            <ArrowRight className="w-4 h-4 text-pink-200 group-hover:translate-x-1 transition-transform" />
+            <span>처음 시작하기: 12단계 플레이 가이드 읽기</span>
+            <ArrowRight className="w-4 h-4 text-[#58307E]" />
           </Link>
-
           <Link
             href="/wiki"
-            className="w-full sm:w-auto flex-1 flex items-center justify-center gap-2.5 px-6 py-4 rounded-2xl bg-white hover:bg-pink-50/50 text-wiki-text hover:text-purple-700 font-extrabold text-base border-2 border-purple-200 transition-all shadow-xs"
+            className="p-3 bg-[#FAFAFD] hover:bg-[#F3EFF8] border border-[#DDD8E6] rounded flex items-center justify-between font-bold text-[#212529] transition-colors"
           >
-            <BookOpen className="w-5 h-5 text-purple-600" />
-            <span>전체 위키 문서 보기</span>
+            <span>전체 위키 문서 색인 둘러보기</span>
+            <BookOpen className="w-4 h-4 text-[#5A5468]" />
           </Link>
         </div>
       </section>
 
-      {/* 2. 두 번째 영역 — 게임은 이렇게 진행됩니다 (흐름도) */}
-      <section className="rounded-2xl border border-wiki-border bg-white/90 backdrop-blur-xs p-6 sm:p-8 shadow-xs space-y-4">
-        <div className="border-b border-wiki-border pb-3 flex items-center justify-between">
-          <div>
-            <h2 className="text-lg sm:text-xl font-extrabold text-wiki-text flex items-center gap-2">
-              <Sparkles className="w-4 h-4 text-pink-500" />
-              <span>게임은 이렇게 진행됩니다</span>
-            </h2>
-            <p className="text-xs sm:text-sm text-wiki-secondary mt-1">
-              창단부터 리그 우승, 그리고 다음 시즌으로 이어지는 전체 게임의 기본 순서도입니다. 단계를 누르면 해당 가이드로 이동합니다.
-            </p>
-          </div>
-          <Heart className="w-4 h-4 text-pink-400 fill-pink-200 hidden sm:inline-block" />
+      {/* 2. 게임 진행 순서도 (화살표 연결 표) */}
+      <section className="bg-white border border-[#DDD8E6] rounded p-4 sm:p-5 shadow-2xs space-y-3">
+        <div className="border-b border-[#EBE7F2] pb-2">
+          <h2 className="text-sm sm:text-base font-bold text-[#1F192C]">
+            게임 진행 순서도
+          </h2>
+          <p className="text-xs text-[#5A5468] mt-0.5">
+            창단 주간부터 정규 리그, 포스트시즌, 비시즌 4주로 이어지는 게임의 순환 구조입니다. 단계를 누르면 해당 가이드로 이동합니다.
+          </p>
         </div>
 
-        {/* 가로 스크롤 가능한 단계형 순서도 바 */}
-        <div className="overflow-x-auto pb-2 pt-2">
-          <div className="flex items-center min-w-[760px] justify-between gap-1.5 text-xs">
+        <div className="overflow-x-auto pb-1">
+          <div className="flex items-center min-w-[780px] justify-between gap-1 text-xs">
             {flowSteps.map((step, idx) => (
               <React.Fragment key={step.label}>
                 <Link
                   href={`/wiki/${step.slug}`}
-                  className="px-3 py-2.5 rounded-xl bg-gradient-to-b from-purple-50/80 to-pink-50/50 hover:from-pink-500 hover:to-purple-600 hover:text-white border border-pink-200/70 font-bold text-wiki-text transition-all text-center flex-1 shadow-2xs whitespace-nowrap hover:scale-102"
+                  className="px-2.5 py-2 rounded bg-[#F8F7FA] hover:bg-[#58307E] hover:text-white border border-[#DDD8E6] font-medium text-[#212529] transition-colors text-center flex-1 whitespace-nowrap"
                 >
                   {step.label}
                 </Link>
                 {idx < flowSteps.length - 1 && (
-                  <ChevronRight className="w-4 h-4 text-pink-300 flex-shrink-0" />
+                  <span className="text-[#A0AEC0] px-0.5 font-bold">→</span>
                 )}
               </React.Fragment>
             ))}
@@ -228,45 +203,41 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 3. 세 번째 영역 — 게임 플레이 순서별 12단계 가이드 (핵심 메인 영역) */}
-      <section className="space-y-5">
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2 border-b-2 border-pink-200 pb-3">
+      {/* 3. 게임 플레이 순서별 12단계 가이드 (핵심 메인 영역) */}
+      <section className="bg-white border border-[#DDD8E6] rounded p-5 shadow-2xs space-y-4">
+        <div className="border-b border-[#EBE7F2] pb-2 flex items-center justify-between">
           <div>
-            <div className="text-xs font-bold uppercase tracking-wider text-pink-600 flex items-center gap-1.5 mb-1">
-              <Star className="w-3.5 h-3.5 text-amber-400 fill-amber-300" />
-              <span>초보자 완전 정복</span>
-            </div>
-            <h2 className="text-xl sm:text-2xl font-extrabold text-wiki-text flex items-center gap-2">
-              <span>게임 플레이 순서별 12단계 가이드</span>
+            <h2 className="text-sm sm:text-base font-bold text-[#1F192C]">
+              플레이 순서별 12단계 입문 가이드
             </h2>
+            <p className="text-xs text-[#5A5468] mt-0.5">
+              처음 플레이하는 사용자가 게임 흐름을 직관적으로 따라갈 수 있도록 정리한 필수 안내서입니다.
+            </p>
           </div>
-          <span className="text-xs text-wiki-secondary">
-            1단계부터 차근차근 따라 읽으면 누구나 매니저가 될 수 있습니다.
-          </span>
+          <Link
+            href="/wiki/beginner/step-01-game-intro"
+            className="text-xs text-[#553C9A] hover:underline font-bold"
+          >
+            1단계부터 읽기 →
+          </Link>
         </div>
 
-        {/* 12단계 타임라인 목록형 카드 (마법소녀 파스텔 뱃지) */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {/* 12단계 위키 색인 테이블 */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
           {guideSteps.map((step) => (
             <Link
               key={step.num}
               href={`/wiki/${step.slug}`}
-              className="p-5 rounded-2xl border border-wiki-border bg-white hover:border-pink-300 hover:bg-gradient-to-br hover:from-pink-50/40 hover:to-purple-50/30 transition-all shadow-xs hover:shadow-sm group flex items-start gap-4"
+              className="p-3 rounded border border-[#DDD8E6] bg-[#FAFAFD] hover:bg-[#F3EFF8] hover:border-[#B794F4] transition-all flex items-start gap-3 group"
             >
-              <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-pink-100 to-purple-100 border border-pink-200 flex items-center justify-center text-purple-700 font-extrabold text-base font-mono flex-shrink-0 group-hover:from-pink-500 group-hover:to-purple-600 group-hover:text-white transition-all shadow-2xs">
+              <div className="w-8 h-8 rounded bg-[#EBE7F2] text-[#4A2E6D] font-mono font-bold text-xs flex items-center justify-center flex-shrink-0 group-hover:bg-[#58307E] group-hover:text-white transition-colors">
                 {step.num}
               </div>
-              <div className="flex-1 min-w-0 space-y-1">
-                <div className="flex items-center justify-between gap-2">
-                  <h3 className="font-extrabold text-sm sm:text-base text-wiki-text group-hover:text-pink-600 transition-colors truncate">
-                    {step.title}
-                  </h3>
-                  <span className="text-xs font-semibold text-pink-600 flex items-center gap-0.5 flex-shrink-0 group-hover:translate-x-0.5 transition-transform">
-                    <span>읽기</span>
-                    <ChevronRight className="w-3.5 h-3.5" />
-                  </span>
+              <div className="min-w-0 space-y-0.5 flex-1">
+                <div className="font-bold text-[#212529] group-hover:text-[#553C9A] transition-colors truncate">
+                  {step.title}
                 </div>
-                <p className="text-xs sm:text-[13px] text-wiki-secondary leading-relaxed line-clamp-2">
+                <p className="text-[#718096] text-[11px] leading-relaxed line-clamp-1">
                   {step.desc}
                 </p>
               </div>
@@ -275,39 +246,37 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 4. 네 번째 영역 — 필요한 규칙 찾아보기 (기존 8개 위키 카테고리) */}
-      <section className="rounded-2xl border border-wiki-border bg-white/90 backdrop-blur-xs p-6 sm:p-8 shadow-xs space-y-6">
-        <div className="flex items-center justify-between pb-3 border-b border-wiki-border">
+      {/* 4. 분야별 위키 백과 색인 표 (기존 8개 카테고리) */}
+      <section className="bg-white border border-[#DDD8E6] rounded p-5 shadow-2xs space-y-4">
+        <div className="border-b border-[#EBE7F2] pb-2 flex items-center justify-between">
           <div>
-            <h2 className="text-lg sm:text-xl font-extrabold text-wiki-text flex items-center gap-2">
-              <BookOpen className="w-5 h-5 text-purple-600" />
-              <span>필요한 상세 규칙 찾아보기</span>
+            <h2 className="text-sm sm:text-base font-bold text-[#1F192C]">
+              분야별 위키 백과사전
             </h2>
-            <p className="text-xs sm:text-sm text-wiki-secondary mt-1">
-              특정 시스템이나 계산 공식, 세부 규정이 궁금할 때 언제든 열람할 수 있는 위키 백과사전입니다.
+            <p className="text-xs text-[#5A5468] mt-0.5">
+              특정 시스템이나 규칙, 상세 수치와 공식이 궁금할 때 열람하는 위키 문서입니다.
             </p>
           </div>
           <Link
             href="/wiki"
-            className="text-xs font-bold text-purple-600 hover:text-pink-600 hover:underline flex items-center gap-1 flex-shrink-0"
+            className="text-xs text-[#553C9A] hover:underline font-bold"
           >
-            <span>전체 문서</span>
-            <ArrowRight className="w-3.5 h-3.5" />
+            전체 문서 색인 →
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 text-xs">
           {CATEGORIES.filter((c) => c.id !== "beginner").map((category) => (
             <Link
               key={category.id}
               href={`/wiki#category-${category.id}`}
-              className="p-4 rounded-xl border border-wiki-border/80 bg-wiki-bg/40 hover:bg-gradient-to-br hover:from-pink-50/50 hover:to-purple-50/50 hover:border-pink-300 transition-all space-y-1.5 group"
+              className="p-3 rounded border border-[#DDD8E6] bg-[#FAFAFD] hover:bg-[#F5F2F9] transition-colors space-y-1 block"
             >
-              <div className="font-extrabold text-xs sm:text-sm text-wiki-text group-hover:text-purple-700 transition-colors flex items-center justify-between">
+              <div className="font-bold text-[#2A1740] flex items-center justify-between">
                 <span>{category.name}</span>
-                <ChevronRight className="w-3.5 h-3.5 text-wiki-muted group-hover:text-pink-600" />
+                <ChevronRight className="w-3.5 h-3.5 text-[#A0AEC0]" />
               </div>
-              <p className="text-[11px] text-wiki-secondary line-clamp-2 leading-relaxed">
+              <p className="text-[11px] text-[#718096] line-clamp-2 leading-relaxed">
                 {category.description}
               </p>
             </Link>
@@ -315,55 +284,67 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 5. 다섯 번째 영역 — 최근 수정된 문서 */}
-      <section className="rounded-2xl border border-wiki-border bg-white p-5 sm:p-6 shadow-xs space-y-3">
-        <div className="flex items-center justify-between pb-2 border-b border-wiki-border">
+      {/* 5. 최근 변경된 문서 표 */}
+      <section className="bg-white border border-[#DDD8E6] rounded p-4 sm:p-5 shadow-2xs space-y-3">
+        <div className="border-b border-[#EBE7F2] pb-2 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Clock className="w-4 h-4 text-purple-600" />
-            <h2 className="font-bold text-sm sm:text-base text-wiki-text">최근 수정된 문서</h2>
+            <Clock className="w-4 h-4 text-[#58307E]" />
+            <h2 className="text-sm sm:text-base font-bold text-[#1F192C]">
+              최근 변경된 문서
+            </h2>
           </div>
           <Link
             href="/wiki"
-            className="text-xs text-purple-600 hover:text-pink-600 hover:underline font-semibold"
+            className="text-xs text-[#553C9A] hover:underline font-medium"
           >
-            전체 목록 보기 →
+            전체 목록 보기
           </Link>
         </div>
 
-        <div className="divide-y divide-wiki-border/60 text-xs">
-          {recentDocs.map((doc) => (
-            <div
-              key={doc.slug}
-              className="py-2.5 flex items-center justify-between gap-4 hover:bg-pink-50/30 px-2 rounded-lg transition-colors"
-            >
-              <div className="flex items-center gap-2 min-w-0">
-                <span className="text-[10px] px-2 py-0.5 rounded-full bg-pink-50 text-pink-700 font-semibold border border-pink-200 flex-shrink-0">
-                  {doc.category}
-                </span>
-                <Link
-                  href={`/wiki/${doc.slug}`}
-                  className="font-bold text-wiki-text hover:text-pink-600 hover:underline truncate"
-                >
-                  {doc.title}
-                </Link>
-              </div>
-              <div className="flex items-center gap-2 flex-shrink-0 text-wiki-muted text-[11px] font-mono">
-                <StatusBadge status={doc.status} />
-                <span className="hidden sm:inline">{doc.updatedAt}</span>
-              </div>
-            </div>
-          ))}
+        <div className="overflow-x-auto text-xs">
+          <table className="w-full text-left border-collapse">
+            <thead>
+              <tr className="border-b border-[#DDD8E6] bg-[#F1EDF6] text-[#2A1740]">
+                <th className="py-2 px-3 font-semibold">문서명</th>
+                <th className="py-2 px-3 font-semibold">분류</th>
+                <th className="py-2 px-3 font-semibold text-center">상태</th>
+                <th className="py-2 px-3 font-semibold text-right">수정일</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-[#EBE7F2]">
+              {recentDocs.map((doc) => (
+                <tr key={doc.slug} className="hover:bg-[#F9F7FC] transition-colors">
+                  <td className="py-2 px-3 font-medium">
+                    <Link
+                      href={`/wiki/${doc.slug}`}
+                      className="text-[#212529] hover:text-[#553C9A] hover:underline font-bold"
+                    >
+                      {doc.title}
+                    </Link>
+                  </td>
+                  <td className="py-2 px-3 text-[#5A5468]">
+                    {doc.category}
+                  </td>
+                  <td className="py-2 px-3 text-center">
+                    <StatusBadge status={doc.status} />
+                  </td>
+                  <td className="py-2 px-3 text-right font-mono text-[11px] text-[#718096]">
+                    {doc.updatedAt}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </section>
 
-      {/* 하단 보조 정보: 다운로드 재안내 및 단축키 */}
-      <footer className="pt-4 border-t border-wiki-border text-xs text-wiki-secondary flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
-        <div className="flex items-center gap-2">
-          <Sparkles className="w-3.5 h-3.5 text-pink-500" />
-          <span>IDOL Manager Wiki (총 {allDocs.length}개 문서 수록) · 게임 클라이언트: <a href={DOWNLOAD_URL} target="_blank" rel="noopener noreferrer" className="text-pink-600 font-bold hover:underline">v0.30.3 다운로드</a></span>
+      {/* 6. 위키 푸터 */}
+      <footer className="border-t border-[#DDD8E6] pt-4 text-xs text-[#718096] flex flex-col sm:flex-row items-center justify-between gap-2 text-center sm:text-left">
+        <div>
+          IDOL Manager 공식 게임 위키 백과사전 · 클라이언트: <a href={DOWNLOAD_URL} target="_blank" rel="noopener noreferrer" className="text-[#553C9A] hover:underline font-bold">IDOL_Manager-0.30.3.zip</a>
         </div>
-        <div className="font-mono text-[11px] text-wiki-muted">
-          <span>문서 검색: <kbd className="px-1.5 py-0.5 rounded bg-white border border-wiki-border text-wiki-text">Ctrl + K</kbd></span>
+        <div>
+          문서 검색: <kbd className="px-1.5 py-0.5 bg-white border border-[#DDD8E6] rounded text-[#212529]">Ctrl + K</kbd>
         </div>
       </footer>
     </main>

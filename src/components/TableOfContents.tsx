@@ -43,45 +43,41 @@ export function TableOfContents({ toc }: TableOfContentsProps) {
   if (toc.length === 0) return null;
 
   return (
-    <aside className="hidden xl:block w-56 flex-shrink-0">
-      <div className="sticky top-20 max-h-[calc(100vh-6rem)] overflow-y-auto rounded-xl border border-wiki-border bg-white p-4 shadow-sm text-xs">
-        <div className="flex items-center gap-1.5 font-bold text-wiki-text pb-2.5 mb-2.5 border-b border-wiki-border">
-          <List className="w-4 h-4 text-brand-600" />
-          <span>문서 목차</span>
+    <aside className="hidden xl:block w-52 flex-shrink-0 select-none">
+      <div className="sticky top-18 max-h-[calc(100vh-5rem)] overflow-y-auto rounded border border-[#DDD8E6] bg-white p-3 text-xs shadow-2xs">
+        <div className="flex items-center gap-1.5 font-bold text-[#2A1740] pb-2 mb-2 border-b border-[#EBE7F2]">
+          <List className="w-3.5 h-3.5 text-[#58307E]" />
+          <span>목차 퀵메뉴</span>
         </div>
 
-        <nav className="space-y-1">
+        <nav className="space-y-0.5">
           {toc.map((item) => {
             const isActive = activeId === item.id;
             return (
               <a
                 key={item.id}
                 href={`#${item.id}`}
-                className={`group flex items-start gap-1 py-1 rounded transition-colors ${
+                className={`group flex items-start gap-1 py-1 px-1.5 rounded transition-colors ${
                   item.level === 3 ? "pl-3 text-[11px]" : "font-medium"
                 } ${
                   isActive
-                    ? "text-brand-600 font-bold bg-brand-50/60"
-                    : "text-wiki-secondary hover:text-brand-600"
+                    ? "text-[#58307E] font-bold bg-[#F3EFF8]"
+                    : "text-[#5A5468] hover:text-[#212529] hover:bg-[#F8F7FA]"
                 }`}
               >
-                <ChevronRight
-                  className={`w-3 h-3 mt-0.5 flex-shrink-0 transition-transform ${
-                    isActive ? "text-brand-600 translate-x-0.5" : "text-transparent group-hover:text-wiki-muted"
-                  }`}
-                />
                 <span className="truncate">{item.text}</span>
               </a>
             );
           })}
         </nav>
 
-        <div className="pt-3 mt-4 border-t border-wiki-border/60">
+        <div className="pt-2.5 mt-3 border-t border-[#EBE7F2]">
           <button
+            type="button"
             onClick={scrollToTop}
-            className="flex items-center gap-1.5 text-wiki-secondary hover:text-brand-600 transition-colors w-full py-1 text-[11px]"
+            className="flex items-center gap-1 text-[#718096] hover:text-[#212529] transition-colors w-full py-1 text-[11px] cursor-pointer"
           >
-            <ArrowUp className="w-3.5 h-3.5" />
+            <ArrowUp className="w-3 h-3" />
             <span>맨 위로 이동</span>
           </button>
         </div>
