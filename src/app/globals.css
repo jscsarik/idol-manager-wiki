@@ -1,0 +1,180 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary: #8B5CF6;
+  --primary-light: #EDE9FE;
+  --background: #F8F7FC;
+  --surface: #FFFFFF;
+  --border: #E5E1EF;
+  --text: #262238;
+  --secondary-text: #77718A;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard", "Segoe UI", Roboto, "Noto Sans KR", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #D8D2E7;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #A78BFA;
+}
+
+/* Wiki Article Styling */
+.wiki-content {
+  line-height: 1.75;
+  color: #262238;
+  word-break: keep-all;
+}
+
+.wiki-content h1 {
+  font-size: 1.875rem;
+  font-weight: 700;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #E5E1EF;
+  color: #1F1932;
+}
+
+.wiki-content h2 {
+  font-size: 1.45rem;
+  font-weight: 700;
+  margin-top: 2rem;
+  margin-bottom: 0.85rem;
+  padding-bottom: 0.35rem;
+  border-bottom: 1px solid #EDE9FE;
+  color: #2E1065;
+}
+
+.wiki-content h3 {
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin-top: 1.5rem;
+  margin-bottom: 0.6rem;
+  color: #4C1D95;
+}
+
+.wiki-content p {
+  margin-bottom: 1.15rem;
+}
+
+.wiki-content ul {
+  list-style-type: disc;
+  padding-left: 1.5rem;
+  margin-bottom: 1.15rem;
+}
+
+.wiki-content ol {
+  list-style-type: decimal;
+  padding-left: 1.5rem;
+  margin-bottom: 1.15rem;
+}
+
+.wiki-content li {
+  margin-bottom: 0.35rem;
+}
+
+.wiki-content strong {
+  font-weight: 600;
+  color: #1F1932;
+}
+
+.wiki-content a {
+  color: #7C3AED;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  font-weight: 500;
+  transition: color 0.15s;
+}
+.wiki-content a:hover {
+  color: #5B21B6;
+}
+
+/* Wiki Tables */
+.wiki-table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.wiki-table th {
+  background-color: #F3F0FA;
+  color: #4C1D95;
+  font-weight: 600;
+  padding: 0.75rem 1rem;
+  text-align: left;
+  border-bottom: 2px solid #E5E1EF;
+}
+
+.wiki-table td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #F1EEF8;
+  color: #373052;
+}
+
+.wiki-table tr:hover {
+  background-color: #FAF8FF;
+}
+
+/* Collapsible details */
+details {
+  border: 1px solid #E5E1EF;
+  border-radius: 0.5rem;
+  padding: 0.75rem 1rem;
+  margin: 1rem 0;
+  background-color: #FFFFFF;
+}
+
+details summary {
+  font-weight: 600;
+  cursor: pointer;
+  color: #6D28D9;
+  user-select: none;
+}
+
+details[open] summary {
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px dashed #E5E1EF;
+}
+
+/* Code block */
+.wiki-content code {
+  background-color: #F1EEF9;
+  color: #6D28D9;
+  padding: 0.15rem 0.4rem;
+  border-radius: 0.25rem;
+  font-size: 0.875em;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+.wiki-content pre {
+  background-color: #262238;
+  color: #F8F7FC;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  overflow-x: auto;
+  margin: 1.25rem 0;
+}
+
+.wiki-content pre code {
+  background: transparent;
+  color: inherit;
+  padding: 0;
+}
