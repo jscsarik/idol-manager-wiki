@@ -5,18 +5,16 @@ import type { Metadata } from "next";
 import {
   Calendar,
   Tag,
-  Share2,
   ChevronLeft,
   ChevronRight,
   BookOpen,
-  ArrowRight,
+  FolderTree,
 } from "lucide-react";
 import { getAllDocs, getDocBySlug } from "@/lib/wiki";
 import { Sidebar } from "@/components/Sidebar";
 import { TableOfContents } from "@/components/TableOfContents";
-import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { StatusBadge } from "@/components/StatusBadge";
-import { Infobox } from "@/components/Infobox";
+import { DocViewer } from "@/components/DocViewer";
 
 interface PageProps {
   params: {
@@ -42,7 +40,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   }
 
   return {
-    title: doc.title,
+    title: `${doc.title} — IDOL Manager Wiki`,
     description: doc.description,
     openGraph: {
       title: `${doc.title} — IDOL Manager Wiki`,
@@ -69,36 +67,53 @@ export default async function WikiDocPage({ params }: PageProps) {
     currentIndex < categoryDocs.length - 1 ? categoryDocs[currentIndex + 1] : null;
 
   // 관련 문서 목록 계산
-  const relatedDocs = doc.related
+  const relatedDocs = doc.related && doc.related.length > 0
     ? allDocs.filter((d) => doc.related?.includes(d.slug) || doc.related?.includes(d.title))
     : categoryDocs.filter((d) => d.slug !== doc.slug).slice(0, 3);
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 w-full">
       <div className="flex gap-8 items-start">
-        {/* 좌측 사이드바 (데스크톱) */}
+        {/* 좌측 카테고리 트리 사이드바 (데스크톱) */}
         <Sidebar className="hidden lg:block" />
 
         {/* 중앙 본문 영역 */}
         <main className="flex-1 min-w-0">
           <article className="bg-white rounded-2xl border border-wiki-border p-6 sm:p-10 shadow-xs">
-            {/* 상단 경로 (Breadcrumbs) */}
-            <Breadcrumbs
-              category={doc.category}
-              categoryId={doc.categoryId}
-              title={doc.title}
-            />
+            {/* 나무위키 특유의 상단 분류 박스 */}
+            <div className="mb-4 pb-3 border-b border-wiki-border/70 flex items-center justify-between text-xs text-wiki-secondary">
+              <div className="flex items-center gap-1.5 flex-wrap">
+                <span className="font-semibold text-brand-700 flex items-center gap-1">
+                  <FolderTree className="w-3.5 h-3.5 text-brand-600" />
+                  분류:
+                </span>
+                <Link
+                  href="/wiki"
+                  className="text-brand-600 hover:underline hover:text-brand-800"
+                >
+                  IDOL Manager
+                </Link>
+                <span className="text-wiki-border">|</span>
+                <Link
+                  href={`/wiki#category-${doc.categoryId}`}
+                  className="text-brand-600 hover:underline hover:text-brand-800 font-medium"
+                >
+                  {doc.category}
+                </Link>
+              </div>
 
-            {/* 문서 헤더 */}
-            <header className="pb-6 mb-6 border-b border-wiki-border space-y-3">
+              <div className="flex items-center gap-1 text-[11px] text-wiki-muted">
+                <Calendar className="w-3 h-3 text-brand-400" />
+                <span>최종 수정: {doc.updatedAt}</span>
+              </div>
+            </div>
+
+            {/* 문서 헤더 및 제목 */}
+            <header className="pb-4 mb-4 border-b border-wiki-border space-y-2">
               <div className="flex flex-wrap items-center gap-2">
                 <StatusBadge status={doc.status} />
-                <span className="text-xs px-2.5 py-0.5 rounded-full bg-brand-50 text-brand-700 font-semibold border border-brand-100">
+                <span className="text-xs px-2.5 py-0.5 rounded-md bg-brand-50 text-brand-700 font-semibold border border-brand-200">
                   {doc.category}
-                </span>
-                <span className="text-xs text-wiki-muted flex items-center gap-1 ml-auto">
-                  <Calendar className="w-3.5 h-3.5" />
-                  최종 수정: {doc.updatedAt}
                 </span>
               </div>
 
@@ -107,7 +122,7 @@ export default async function WikiDocPage({ params }: PageProps) {
               </h1>
 
               {doc.description && (
-                <p className="text-sm sm:text-base text-wiki-secondary leading-relaxed font-normal">
+                <p className="text-sm text-wiki-secondary leading-relaxed font-normal pt-1">
                   {doc.description}
                 </p>
               )}
@@ -119,7 +134,7 @@ export default async function WikiDocPage({ params }: PageProps) {
                   {doc.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="text-[11px] px-2 py-0.5 rounded-md bg-wiki-bg text-wiki-secondary border border-wiki-border/60"
+                      className="text-[11px] px-2 py-0.5 rounded bg-wiki-bg text-wiki-secondary border border-wiki-border/60"
                     >
                       #{tag}
                     </span>
@@ -128,16 +143,8 @@ export default async function WikiDocPage({ params }: PageProps) {
               )}
             </header>
 
-            {/* 정보상자 (Infobox) */}
-            {doc.infobox && (
-              <Infobox title={doc.title} data={doc.infobox} />
-            )}
-
-            {/* 본문 마크다운 HTML 렌더링 */}
-            <div
-              className="wiki-content prose prose-violet max-w-none clear-both"
-              dangerouslySetInnerHTML={{ __html: doc.htmlContent }}
-            />
+            {/* 나무위키형 상단 탭 툴바 + 인포박스 + 인라인목차 + 본문/역링크/소스 통합 뷰어 */}
+            <DocViewer doc={doc} />
 
             {/* 관련 문서 섹션 */}
             {relatedDocs.length > 0 && (
@@ -200,7 +207,7 @@ export default async function WikiDocPage({ params }: PageProps) {
           </article>
         </main>
 
-        {/* 우측 목차 (TOC) */}
+        {/* 우측 소제목 스크롤 네비게이터 */}
         <TableOfContents toc={doc.toc} />
       </div>
     </div>

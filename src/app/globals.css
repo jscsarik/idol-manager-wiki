@@ -38,29 +38,31 @@ body {
 
 /* Wiki Article Styling */
 .wiki-content {
-  line-height: 1.75;
+  line-height: 1.8;
   color: #262238;
   word-break: keep-all;
 }
 
 .wiki-content h1 {
   font-size: 1.875rem;
-  font-weight: 700;
-  margin-top: 2rem;
+  font-weight: 800;
+  margin-top: 2.25rem;
   margin-bottom: 1rem;
   padding-bottom: 0.5rem;
   border-bottom: 2px solid #E5E1EF;
   color: #1F1932;
+  letter-spacing: -0.02em;
 }
 
 .wiki-content h2 {
-  font-size: 1.45rem;
+  font-size: 1.4rem;
   font-weight: 700;
   margin-top: 2rem;
   margin-bottom: 0.85rem;
   padding-bottom: 0.35rem;
-  border-bottom: 1px solid #EDE9FE;
+  border-bottom: 1.5px solid #EDE9FE;
   color: #2E1065;
+  letter-spacing: -0.01em;
 }
 
 .wiki-content h3 {
@@ -71,8 +73,17 @@ body {
   color: #4C1D95;
 }
 
+.wiki-content h4 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-top: 1.25rem;
+  margin-bottom: 0.5rem;
+  color: #5B21B6;
+}
+
 .wiki-content p {
   margin-bottom: 1.15rem;
+  font-size: 0.95rem;
 }
 
 .wiki-content ul {
@@ -89,6 +100,7 @@ body {
 
 .wiki-content li {
   margin-bottom: 0.35rem;
+  font-size: 0.95rem;
 }
 
 .wiki-content strong {
@@ -96,30 +108,72 @@ body {
   color: #1F1932;
 }
 
+/* 나무위키 일반 하이퍼링크 스타일 */
 .wiki-content a {
   color: #7C3AED;
   text-decoration: underline;
   text-underline-offset: 3px;
   font-weight: 500;
-  transition: color 0.15s;
+  transition: color 0.15s, background-color 0.15s;
 }
 .wiki-content a:hover {
   color: #5B21B6;
+  background-color: #EDE9FE/50;
+}
+
+/* 게임 용어 자동 링크 스타일 */
+.wiki-auto-link {
+  color: #7C3AED !important;
+  text-decoration: underline !important;
+  text-underline-offset: 3px !important;
+  text-decoration-color: #C4B5FD !important;
+  font-weight: 500 !important;
+  padding: 0 1px;
+  border-radius: 2px;
+  transition: all 0.15s ease-in-out;
+}
+.wiki-auto-link:hover {
+  color: #5B21B6 !important;
+  background-color: #EDE9FE !important;
+  text-decoration-color: #7C3AED !important;
+}
+
+/* 미작성 링크 안내 스타일 */
+.wiki-link-missing {
+  color: #E11D48;
+  text-decoration: underline dashed;
+  text-underline-offset: 3px;
+  cursor: help;
+  opacity: 0.85;
+}
+.wiki-link-missing:hover {
+  opacity: 1;
 }
 
 /* Wiki Tables */
+.wiki-table-container {
+  margin: 1.5rem 0;
+  border-radius: 0.75rem;
+  border: 1px solid #E5E1EF;
+  background-color: #FFFFFF;
+  overflow-x: auto;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+}
+
 .wiki-table {
   border-collapse: collapse;
   width: 100%;
+  font-size: 0.875rem;
 }
 
 .wiki-table th {
-  background-color: #F3F0FA;
+  background-color: #F5F3FF;
   color: #4C1D95;
-  font-weight: 600;
+  font-weight: 700;
   padding: 0.75rem 1rem;
   text-align: left;
-  border-bottom: 2px solid #E5E1EF;
+  border-bottom: 2px solid #DDD6FE;
+  white-space: nowrap;
 }
 
 .wiki-table td {
@@ -128,30 +182,45 @@ body {
   color: #373052;
 }
 
+.wiki-table tr:last-child td {
+  border-bottom: none;
+}
+
 .wiki-table tr:hover {
   background-color: #FAF8FF;
 }
 
-/* Collapsible details */
-details {
-  border: 1px solid #E5E1EF;
-  border-radius: 0.5rem;
-  padding: 0.75rem 1rem;
-  margin: 1rem 0;
-  background-color: #FFFFFF;
+/* 인용구 */
+.wiki-quote {
+  border-left: 4px solid #8B5CF6;
+  background-color: rgba(237, 233, 254, 0.35);
+  padding: 0.85rem 1.15rem;
+  border-radius: 0 0.5rem 0.5rem 0;
+  margin: 1.25rem 0;
+  color: #373052;
 }
 
-details summary {
-  font-weight: 600;
+/* Details 접기 */
+details.wiki-details {
+  border: 1px solid #DDD6FE;
+  border-radius: 0.75rem;
+  padding: 0.85rem 1.15rem;
+  margin: 1.25rem 0;
+  background-color: #FFFFFF;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+}
+
+details.wiki-details summary {
+  font-weight: 700;
   cursor: pointer;
   color: #6D28D9;
   user-select: none;
 }
 
-details[open] summary {
-  margin-bottom: 0.75rem;
+details.wiki-details[open] summary {
+  margin-bottom: 0.85rem;
   padding-bottom: 0.5rem;
-  border-bottom: 1px dashed #E5E1EF;
+  border-bottom: 1px dashed #EDE9FE;
 }
 
 /* Code block */
@@ -168,7 +237,7 @@ details[open] summary {
   background-color: #262238;
   color: #F8F7FC;
   padding: 1rem;
-  border-radius: 0.5rem;
+  border-radius: 0.75rem;
   overflow-x: auto;
   margin: 1.25rem 0;
 }
@@ -177,4 +246,48 @@ details[open] summary {
   background: transparent;
   color: inherit;
   padding: 0;
+}
+
+/* 각주 스타일링 */
+sup {
+  font-size: 0.75em;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+  top: -0.5em;
+}
+
+sup a {
+  color: #7C3AED;
+  font-weight: 700;
+  padding: 0 2px;
+  text-decoration: none !important;
+}
+
+sup a:hover {
+  text-decoration: underline !important;
+  color: #4C1D95;
+}
+
+.wiki-footnotes {
+  margin-top: 2.5rem;
+  padding: 1.25rem;
+  border-top: 1.5px solid #E5E1EF;
+  background-color: #FAF9FD;
+  border-radius: 0.75rem;
+  font-size: 0.8125rem;
+  color: #6B7280;
+}
+
+.wiki-footnotes ol {
+  padding-left: 1.25rem;
+  margin-bottom: 0;
+}
+
+.wiki-footnotes li {
+  margin-bottom: 0.5rem;
+}
+
+.wiki-footnotes li:last-child {
+  margin-bottom: 0;
 }

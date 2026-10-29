@@ -2,18 +2,21 @@ import React from "react";
 import Link from "next/link";
 import {
   Sparkles,
-  Play,
+  BookOpen,
   Calendar,
-  Users,
-  Trophy,
-  Award,
-  Building2,
-  FileText,
   Clock,
+  Compass,
   ArrowRight,
   ShieldCheck,
   Zap,
+  Users,
+  Trophy,
+  Building2,
+  FileText,
+  Search,
+  Shuffle,
   Info,
+  CheckCircle2,
 } from "lucide-react";
 import { getAllDocs } from "@/lib/wiki";
 import { CATEGORIES } from "@/lib/categories";
@@ -21,361 +24,387 @@ import { StatusBadge } from "@/components/StatusBadge";
 
 export default function HomePage() {
   const allDocs = getAllDocs();
-  const recentDocs = allDocs.slice(0, 6);
+  const recentDocs = allDocs.slice(0, 10);
 
-  // 주요 시스템 바로가기 카드
-  const quickCards = [
-    {
-      title: "게임 시작하기",
-      desc: "설치, PySide6 실행 및 2슬롯 저장 세이브 관리",
-      href: "/wiki/introduction/installation",
-      icon: Play,
-      color: "from-blue-500 to-indigo-600",
-    },
-    {
-      title: "창단 준비 7일",
-      desc: "최초 16R 드래프트, 상위 3R 계약 협상, 연습생 추첨",
-      href: "/wiki/season/founding-prep",
-      icon: Users,
-      color: "from-violet-500 to-purple-600",
-    },
-    {
-      title: "아이돌 육성 & 성장",
-      desc: "8개 능력치, CA/PA 잠재력, 주간 성장 및 노화",
-      href: "/wiki/idols/growth-aging",
-      icon: Zap,
-      color: "from-fuchsia-500 to-pink-600",
-    },
-    {
-      title: "경기 판정 엔진",
-      desc: "30종 콘텐츠별 주요/보조 판정, 리더십 보너스",
-      href: "/wiki/matches/engine",
-      icon: Trophy,
-      color: "from-amber-500 to-orange-600",
-    },
-    {
-      title: "시즌 31주 구조",
-      desc: "정규 24주(585경기) + 포스트시즌 3주 + 비시즌 4주",
-      href: "/wiki/season/structure",
-      icon: Calendar,
-      color: "from-emerald-500 to-teal-600",
-    },
-    {
-      title: "FA 및 트레이드",
-      desc: "공개 입찰, 프로 맞교환 거래, 방출 위약금",
-      href: "/wiki/draft/trade",
-      icon: Users,
-      color: "from-cyan-500 to-blue-600",
-    },
-    {
-      title: "기획사 재정 & 급여",
-      desc: "초기 10억, 주간 후원금, 4주 급여, 채무와 강제매각",
-      href: "/wiki/management/finance",
-      icon: Building2,
-      color: "from-purple-500 to-indigo-700",
-    },
-    {
-      title: "개인 기록 & 시상식",
-      desc: "승리·패배 아이돌, 시즌 개인상 11개 및 트로피",
-      href: "/wiki/records/season-awards",
-      icon: Award,
-      color: "from-rose-500 to-pink-700",
-    },
-  ];
-
-  // 초보자 가이드 8단계
-  const beginnerSteps = [
-    { step: 1, title: "게임 설치 및 실행", desc: "Python 3.12+ 가상환경 또는 실행하기.bat로 시작" },
-    { step: 2, title: "새 게임 생성", desc: "10개 기획사 중 본인이 운영할 1개 기획사 선택" },
-    { step: 3, title: "창단 드래프트", desc: "후보 200명 중 16라운드 스네이크 방식으로 160명 선발" },
-    { step: 4, title: "선수 계약 협상", desc: "1~3라운드 지명자 개별 협상, 4~16라운드 3,000만 원 자동 계약" },
-    { step: 5, title: "연습생 영입", desc: "창단 준비 수·금요일 및 매주 월요일 최대 2명 자유계약 추첨 신청" },
-    { step: 6, title: "선수단 편성 & 리더", desc: "1군 5명, 2군 11명 편성 및 1군/2군 리더 지정" },
-    { step: 7, title: "정규 리그 개막", desc: "수~일 정규 585경기 치르며 상대 맞춤 출전자 배치" },
-    { step: 8, title: "포스트시즌 & 비시즌", desc: "상위 4팀 3판 2선승제 플레이오프 및 챔피언 트로피 도전" },
-  ];
+  // 카테고리별 문서 그룹화
+  const docsByCategory = CATEGORIES.map((cat) => {
+    const docs = allDocs.filter((d) => d.categoryId === cat.id);
+    return {
+      ...cat,
+      docs,
+    };
+  });
 
   return (
-    <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
-      {/* 대문 히어로 배너 */}
-      <section className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-brand-900 via-brand-800 to-indigo-950 text-white p-8 sm:p-12 shadow-xl border border-brand-700/50">
-        <div className="absolute -right-12 -bottom-12 w-96 h-96 bg-brand-500/20 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute right-1/4 -top-12 w-64 h-64 bg-fuchsia-500/15 rounded-full blur-2xl pointer-events-none" />
-
-        <div className="relative z-10 max-w-3xl space-y-4">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-500/30 border border-brand-400/40 text-brand-200 text-xs font-semibold backdrop-blur-xs">
-            <Sparkles className="w-3.5 h-3.5 text-brand-300" />
-            <span>IDOL Manager 공식 가이드 & 규칙 데이터베이스</span>
+    <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-8">
+      {/* 1. 나무위키 스타일 대문 상단 환영 박스 */}
+      <section className="rounded-2xl border border-brand-300 bg-white p-6 sm:p-8 shadow-xs">
+        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 pb-6 border-b border-brand-100">
+          <div className="space-y-2">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-50 border border-brand-200 text-brand-700 text-xs font-bold">
+              <Sparkles className="w-3.5 h-3.5 text-brand-600" />
+              <span>IDOL MANAGER OFFICIAL ENCYCLOPEDIA</span>
+            </div>
+            <h1 className="text-2xl sm:text-3xl font-extrabold text-wiki-text tracking-tight">
+              IDOL Manager <span className="text-brand-600">Wiki</span> 대문
+            </h1>
+            <p className="text-xs sm:text-sm text-wiki-secondary leading-relaxed max-w-2xl">
+              <strong>IDOL Manager Wiki</strong>에 오신 것을 환영합니다! 10개 기획사, 200명 드래프트, 31주 정규 시즌, 30종 콘텐츠 경기 판정 등 게임 내 모든 시스템과 공략 정보를 다루는 위키 백과사전입니다. 본문 내 링크를 클릭해 관련 문서를 자유롭게 탐색해 보세요.
+            </p>
           </div>
 
-          <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white leading-tight">
-            IDOL Manager <span className="text-brand-300">Wiki</span>
-          </h1>
+          {/* 위키 현황 통계 박스 */}
+          <div className="grid grid-cols-3 gap-3 w-full md:w-auto flex-shrink-0 bg-brand-50/60 p-4 rounded-xl border border-brand-200/80 text-center text-xs">
+            <div className="px-3">
+              <div className="text-lg sm:text-xl font-extrabold text-brand-700 font-mono">
+                {allDocs.length}
+              </div>
+              <div className="text-[11px] text-wiki-secondary mt-0.5 font-medium">수록 문서</div>
+            </div>
+            <div className="px-3 border-x border-brand-200">
+              <div className="text-lg sm:text-xl font-extrabold text-brand-700 font-mono">
+                {CATEGORIES.length}
+              </div>
+              <div className="text-[11px] text-wiki-secondary mt-0.5 font-medium">분류 항목</div>
+            </div>
+            <div className="px-3">
+              <div className="text-lg sm:text-xl font-extrabold text-emerald-600 font-mono flex items-center justify-center gap-1">
+                <CheckCircle2 className="w-4 h-4" />
+                100%
+              </div>
+              <div className="text-[11px] text-wiki-secondary mt-0.5 font-medium">규칙 검증</div>
+            </div>
+          </div>
+        </div>
 
-          <p className="text-sm sm:text-base text-brand-100/90 leading-relaxed font-normal">
-            10개 기획사가 치열하게 경쟁하는 Windows PC용 아이돌 기획사 경영 시뮬레이션
-            <strong> IDOL Manager</strong>의 공식 시스템 및 완벽 공략 위키입니다.
-            드래프트, 육성, 경기 판정, 리그 대진, 재정 규칙을 투명하게 확인하세요.
-          </p>
-
-          <div className="pt-2 flex flex-wrap gap-3">
+        {/* 대문 빠른 내비게이션 바 */}
+        <div className="pt-4 flex flex-wrap items-center justify-between gap-3 text-xs">
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="font-semibold text-wiki-text flex items-center gap-1 text-brand-800">
+              <Compass className="w-3.5 h-3.5 text-brand-600" />
+              빠른 이동:
+            </span>
             <Link
               href="/wiki/season/founding-prep"
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-brand-500 hover:bg-brand-400 text-white font-bold text-sm shadow-md shadow-brand-950/30 transition-all hover:-translate-y-0.5"
+              className="px-2.5 py-1 rounded-md bg-brand-50 hover:bg-brand-100 text-brand-700 font-medium transition-colors"
             >
-              <span>창단 가이드 읽기</span>
-              <ArrowRight className="w-4 h-4" />
+              창단 준비 7일
             </Link>
             <Link
-              href="/wiki"
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-semibold text-sm border border-white/20 backdrop-blur-xs transition-colors"
+              href="/wiki/season/structure"
+              className="px-2.5 py-1 rounded-md bg-brand-50 hover:bg-brand-100 text-brand-700 font-medium transition-colors"
             >
-              <span>전체 문서 둘러보기</span>
+              시즌 31주 구조
+            </Link>
+            <Link
+              href="/wiki/idols/attributes"
+              className="px-2.5 py-1 rounded-md bg-brand-50 hover:bg-brand-100 text-brand-700 font-medium transition-colors"
+            >
+              아이돌 8대 능력치
+            </Link>
+            <Link
+              href="/wiki/matches/engine"
+              className="px-2.5 py-1 rounded-md bg-brand-50 hover:bg-brand-100 text-brand-700 font-medium transition-colors"
+            >
+              30종 콘텐츠 경기 판정
+            </Link>
+            <Link
+              href="/wiki/draft/trainee-recruitment"
+              className="px-2.5 py-1 rounded-md bg-brand-50 hover:bg-brand-100 text-brand-700 font-medium transition-colors"
+            >
+              연습생 영입 추첨
+            </Link>
+            <Link
+              href="/wiki/management/finance"
+              className="px-2.5 py-1 rounded-md bg-brand-50 hover:bg-brand-100 text-brand-700 font-medium transition-colors"
+            >
+              기획사 재정 및 급여
             </Link>
           </div>
+
+          <Link
+            href="/wiki/random"
+            className="flex items-center gap-1.5 px-3 py-1 rounded-md bg-brand-600 hover:bg-brand-700 text-white font-medium transition-colors shadow-2xs ml-auto"
+          >
+            <Shuffle className="w-3.5 h-3.5" />
+            <span>랜덤 문서 열기</span>
+          </Link>
         </div>
       </section>
 
-      {/* 게임 핵심 정보 및 소개 */}
-      <section className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div className="lg:col-span-2 bg-white rounded-2xl border border-wiki-border p-6 shadow-xs space-y-4">
-          <div className="flex items-center gap-2 text-brand-700 font-bold text-lg pb-2 border-b border-wiki-border">
-            <Info className="w-5 h-5 text-brand-600" />
-            <h2>게임 소개: IDOL Manager란?</h2>
-          </div>
-          <p className="text-wiki-text text-sm leading-relaxed">
-            <strong>IDOL Manager</strong>는 축구의 Football Manager(FM)나 야구의 OOTP처럼
-            플레이어가 10개 기획사 중 한 곳의 대표가 되어 가상의 아이돌을 영입, 육성하고
-            리그 경기와 포스트시즌에서 승리하여 챔피언 트로피를 차지하는
-            <strong> PC 싱글플레이 경영 시뮬레이션 게임</strong>입니다.
-          </p>
-          <p className="text-wiki-text text-sm leading-relaxed">
-            화려한 캐릭터 연출보다는 방대한 통계 데이터, 세밀한 8대 능력치 및 잠재력(PA),
-            일정 피로도와 부상 위험, 정기 급여와 채무 청산, 스네이크 드래프트와 FA 공개 입찰 등
-            깊이 있는 경영 메커니즘을 텍스트와 표 중심의 높은 가독성으로 구현했습니다.
-          </p>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2">
-            <div className="p-3 rounded-xl bg-wiki-bg border border-wiki-border text-center">
-              <div className="text-xs text-wiki-secondary">참가 기획사</div>
-              <div className="text-lg font-bold text-brand-700 mt-0.5">10개 구단</div>
-            </div>
-            <div className="p-3 rounded-xl bg-wiki-bg border border-wiki-border text-center">
-              <div className="text-xs text-wiki-secondary">한 시즌 구조</div>
-              <div className="text-lg font-bold text-brand-700 mt-0.5">31주 (217일)</div>
-            </div>
-            <div className="p-3 rounded-xl bg-wiki-bg border border-wiki-border text-center">
-              <div className="text-xs text-wiki-secondary">정규 경기 수</div>
-              <div className="text-lg font-bold text-brand-700 mt-0.5">총 585경기</div>
-            </div>
-            <div className="p-3 rounded-xl bg-wiki-bg border border-wiki-border text-center">
-              <div className="text-xs text-wiki-secondary">선수단 구성</div>
-              <div className="text-lg font-bold text-brand-700 mt-0.5">1군 5 / 2군 11</div>
-            </div>
-          </div>
-        </div>
-
-        {/* 게임 사양 정보상자 */}
-        <div className="bg-white rounded-2xl border border-wiki-border p-6 shadow-xs space-y-3">
-          <div className="flex items-center gap-2 text-brand-700 font-bold text-base pb-2 border-b border-wiki-border">
-            <ShieldCheck className="w-4 h-4 text-brand-600" />
-            <h3>게임 기본 사양 및 정보</h3>
-          </div>
-          <table className="w-full text-xs">
-            <tbody className="divide-y divide-wiki-border/60">
-              <tr>
-                <th className="py-2 text-left font-semibold text-wiki-secondary w-28">게임명</th>
-                <td className="py-2 text-wiki-text font-bold">IDOL Manager</td>
-              </tr>
-              <tr>
-                <th className="py-2 text-left font-semibold text-wiki-secondary">장르</th>
-                <td className="py-2 text-wiki-text">아이돌 기획사 경영 시뮬레이션</td>
-              </tr>
-              <tr>
-                <th className="py-2 text-left font-semibold text-wiki-secondary">플랫폼</th>
-                <td className="py-2 text-wiki-text">Windows PC (로컬 전용)</td>
-              </tr>
-              <tr>
-                <th className="py-2 text-left font-semibold text-wiki-secondary">개발 언어</th>
-                <td className="py-2 text-wiki-text font-mono">Python 3.12+ (3.13)</td>
-              </tr>
-              <tr>
-                <th className="py-2 text-left font-semibold text-wiki-secondary">UI 프레임워크</th>
-                <td className="py-2 text-wiki-text font-mono">PySide6 (Qt)</td>
-              </tr>
-              <tr>
-                <th className="py-2 text-left font-semibold text-wiki-secondary">데이터베이스</th>
-                <td className="py-2 text-wiki-text font-mono">SQLite3 (WAL 트랜잭션)</td>
-              </tr>
-              <tr>
-                <th className="py-2 text-left font-semibold text-wiki-secondary">최신 안정 버전</th>
-                <td className="py-2 text-emerald-600 font-bold">v0.29.1 (2026-10)</td>
-              </tr>
-            </tbody>
-          </table>
-          <div className="p-2.5 rounded-lg bg-amber-50 border border-amber-200 text-[11px] text-amber-800 leading-snug">
-            ※ 다운로드 링크는 공식 배포 완료 후 별도 제공되며, 게임 속 모든 인물 데이터는 가상 생성값입니다.
-          </div>
-        </div>
-      </section>
-
-      {/* 주요 시스템 바로가기 카드 그리드 */}
-      <section className="space-y-4">
-        <div className="flex items-center justify-between pb-2 border-b border-wiki-border">
-          <div className="flex items-center gap-2 font-bold text-lg text-wiki-text">
-            <Zap className="w-5 h-5 text-brand-600" />
-            <h2>핵심 게임 시스템 바로가기</h2>
+      {/* 2. 나무위키식 주요 포털 색인 표 (Portal Index Table) */}
+      <section className="rounded-2xl border border-wiki-border bg-white overflow-hidden shadow-xs">
+        <div className="bg-brand-600 text-white px-5 py-3 font-bold text-sm flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <BookOpen className="w-4 h-4 text-brand-200" />
+            <span>IDOL Manager 분야별 위키 포털 색인</span>
           </div>
           <Link
             href="/wiki"
-            className="text-xs font-semibold text-brand-600 hover:text-brand-700 flex items-center gap-1"
+            className="text-xs text-brand-200 hover:text-white flex items-center gap-1 transition-colors"
           >
-            전체 문서 색인 보기 <ArrowRight className="w-3.5 h-3.5" />
+            <span>전체 문서 목록</span>
+            <ArrowRight className="w-3 h-3" />
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {quickCards.map((card) => {
-            const Icon = card.icon;
-            return (
-              <Link
-                key={card.title}
-                href={card.href}
-                className="group relative bg-white rounded-2xl border border-wiki-border p-5 shadow-xs hover:shadow-md hover:border-brand-300 transition-all hover:-translate-y-1 flex flex-col justify-between"
-              >
-                <div>
-                  <div
-                    className={`w-10 h-10 rounded-xl bg-gradient-to-tr ${card.color} text-white flex items-center justify-center mb-3 shadow-xs group-hover:scale-110 transition-transform`}
-                  >
-                    <Icon className="w-5 h-5" />
-                  </div>
-                  <h3 className="font-bold text-base text-wiki-text group-hover:text-brand-600 transition-colors">
-                    {card.title}
-                  </h3>
-                  <p className="text-xs text-wiki-secondary mt-1.5 leading-relaxed">
-                    {card.desc}
-                  </p>
-                </div>
-                <div className="pt-4 flex items-center gap-1 text-xs font-semibold text-brand-600 group-hover:translate-x-1 transition-transform">
-                  <span>자세히 보기</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </div>
-              </Link>
-            );
-          })}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 divide-y md:divide-y-0 md:divide-x divide-wiki-border text-xs">
+          {/* 포털 1: 기본 & 시즌 */}
+          <div className="p-4 space-y-3">
+            <div className="font-bold text-brand-800 pb-1.5 border-b border-brand-100 flex items-center gap-1.5">
+              <Calendar className="w-3.5 h-3.5 text-brand-600" />
+              <span>시즌 및 일정</span>
+            </div>
+            <ul className="space-y-1.5 text-wiki-text">
+              <li>
+                <Link href="/wiki/season/founding-prep" className="hover:text-brand-600 hover:underline">
+                  창단 준비 7일 일정
+                </Link>
+              </li>
+              <li>
+                <Link href="/wiki/season/structure" className="hover:text-brand-600 hover:underline">
+                  시즌 31주 전체 구조
+                </Link>
+              </li>
+              <li>
+                <Link href="/wiki/season/regular-season" className="hover:text-brand-600 hover:underline">
+                  정규 리그 24주 (585경기)
+                </Link>
+              </li>
+              <li>
+                <Link href="/wiki/season/postseason" className="hover:text-brand-600 hover:underline">
+                  포스트시즌 (상위 4팀 PO)
+                </Link>
+              </li>
+              <li>
+                <Link href="/wiki/season/offseason" className="hover:text-brand-600 hover:underline">
+                  비시즌 4주 절차
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* 포털 2: 아이돌 육성 */}
+          <div className="p-4 space-y-3">
+            <div className="font-bold text-brand-800 pb-1.5 border-b border-brand-100 flex items-center gap-1.5">
+              <Users className="w-3.5 h-3.5 text-brand-600" />
+              <span>아이돌 육성 & 관리</span>
+            </div>
+            <ul className="space-y-1.5 text-wiki-text">
+              <li>
+                <Link href="/wiki/idols/attributes" className="hover:text-brand-600 hover:underline">
+                  8대 능력치 및 CA / PA
+                </Link>
+              </li>
+              <li>
+                <Link href="/wiki/idols/condition" className="hover:text-brand-600 hover:underline">
+                  건강, 피로도 및 부상
+                </Link>
+              </li>
+              <li>
+                <Link href="/wiki/idols/growth-aging" className="hover:text-brand-600 hover:underline">
+                  주간 성장 및 나이별 노화
+                </Link>
+              </li>
+              <li>
+                <Link href="/wiki/idols/roster" className="hover:text-brand-600 hover:underline">
+                  1군(5명) / 2군(11명) 로스터
+                </Link>
+              </li>
+              <li>
+                <Link href="/wiki/idols/leadership" className="hover:text-brand-600 hover:underline">
+                  리더십 특성 및 팀 버프
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* 포털 3: 경기 판정 엔진 */}
+          <div className="p-4 space-y-3">
+            <div className="font-bold text-brand-800 pb-1.5 border-b border-brand-100 flex items-center gap-1.5">
+              <Trophy className="w-3.5 h-3.5 text-brand-600" />
+              <span>경기 및 콘텐츠</span>
+            </div>
+            <ul className="space-y-1.5 text-wiki-text">
+              <li>
+                <Link href="/wiki/matches/engine" className="hover:text-brand-600 hover:underline">
+                  경기 판정 엔진 원리
+                </Link>
+              </li>
+              <li>
+                <Link href="/wiki/matches/contents" className="hover:text-brand-600 hover:underline">
+                  30종 방송 콘텐츠 목록
+                </Link>
+              </li>
+              <li>
+                <Link href="/wiki/matches/deathmatch" className="hover:text-brand-600 hover:underline">
+                  데스매치 연장전 룰
+                </Link>
+              </li>
+              <li>
+                <Link href="/wiki/matches/special-matches" className="hover:text-brand-600 hover:underline">
+                  특별전 (올스타전, 컵 대회)
+                </Link>
+              </li>
+              <li>
+                <Link href="/wiki/matches/live-concert" className="hover:text-brand-600 hover:underline">
+                  콘서트 및 이벤트 수익
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* 포털 4: 기획사 & 재정 */}
+          <div className="p-4 space-y-3">
+            <div className="font-bold text-brand-800 pb-1.5 border-b border-brand-100 flex items-center gap-1.5">
+              <Building2 className="w-3.5 h-3.5 text-brand-600" />
+              <span>기획사 및 운영</span>
+            </div>
+            <ul className="space-y-1.5 text-wiki-text">
+              <li>
+                <Link href="/wiki/agencies/ten-agencies" className="hover:text-brand-600 hover:underline">
+                  10대 공식 기획사 프로필
+                </Link>
+              </li>
+              <li>
+                <Link href="/wiki/management/finance" className="hover:text-brand-600 hover:underline">
+                  재정, 후원금 및 주간 손익
+                </Link>
+              </li>
+              <li>
+                <Link href="/wiki/management/contracts" className="hover:text-brand-600 hover:underline">
+                  4주 급여 지급 및 채무 파산
+                </Link>
+              </li>
+              <li>
+                <Link href="/wiki/draft/trade" className="hover:text-brand-600 hover:underline">
+                  선수 트레이드 및 방출
+                </Link>
+              </li>
+              <li>
+                <Link href="/wiki/records/season-awards" className="hover:text-brand-600 hover:underline">
+                  시즌 개인상 11개 및 MVP
+                </Link>
+              </li>
+            </ul>
+          </div>
         </div>
       </section>
 
-      {/* 처음 시작하는 플레이어를 위한 8단계 가이드 */}
-      <section className="bg-white rounded-2xl border border-wiki-border p-6 sm:p-8 shadow-xs space-y-6">
-        <div className="space-y-1 pb-3 border-b border-wiki-border">
-          <div className="inline-block px-2.5 py-0.5 rounded-full text-xs font-bold bg-brand-100 text-brand-700">
-            START GUIDE
+      {/* 3. 최근 변경 문서 표 (나무위키 스타일 최근 변경 테이블) */}
+      <section className="rounded-2xl border border-wiki-border bg-white p-5 sm:p-6 shadow-xs space-y-4">
+        <div className="flex items-center justify-between pb-3 border-b border-wiki-border">
+          <div className="flex items-center gap-2">
+            <Clock className="w-4 h-4 text-brand-600" />
+            <h2 className="font-bold text-sm sm:text-base text-wiki-text">최근 변경 문서</h2>
           </div>
-          <h2 className="text-xl font-bold text-wiki-text">
-            처음 시작하는 플레이어를 위한 핵심 입문 가이드
-          </h2>
-          <p className="text-xs text-wiki-secondary">
-            창단부터 정규 리그 데뷔까지 거치게 되는 8가지 필수 절차입니다.
-          </p>
+          <span className="text-xs text-wiki-secondary">
+            총 {allDocs.length}개 문서 수록 중
+          </span>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {beginnerSteps.map((item) => (
+        <div className="overflow-x-auto">
+          <table className="w-full text-left text-xs border-collapse">
+            <thead>
+              <tr className="border-b border-wiki-border bg-brand-50/40 text-wiki-secondary">
+                <th className="py-2.5 px-3 font-semibold w-1/2">문서명</th>
+                <th className="py-2.5 px-3 font-semibold">분류</th>
+                <th className="py-2.5 px-3 font-semibold text-center">상태</th>
+                <th className="py-2.5 px-3 font-semibold text-right">최종 수정일</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-wiki-border/60">
+              {recentDocs.map((doc) => (
+                <tr key={doc.slug} className="hover:bg-brand-50/30 transition-colors">
+                  <td className="py-2.5 px-3 font-medium">
+                    <Link
+                      href={`/wiki/${doc.slug}`}
+                      className="text-wiki-text hover:text-brand-600 hover:underline font-bold"
+                    >
+                      {doc.title}
+                    </Link>
+                    {doc.description && (
+                      <span className="text-wiki-secondary ml-2 font-normal hidden sm:inline-block text-[11px] truncate max-w-xs">
+                        - {doc.description}
+                      </span>
+                    )}
+                  </td>
+                  <td className="py-2.5 px-3 text-wiki-secondary">
+                    <Link
+                      href={`/wiki#category-${doc.categoryId}`}
+                      className="hover:underline hover:text-brand-600 text-[11px]"
+                    >
+                      {doc.category}
+                    </Link>
+                  </td>
+                  <td className="py-2.5 px-3 text-center">
+                    <StatusBadge status={doc.status} />
+                  </td>
+                  <td className="py-2.5 px-3 text-right font-mono text-[11px] text-wiki-muted">
+                    {doc.updatedAt}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      {/* 4. 분류별 전체 문서 색인 트리 */}
+      <section className="rounded-2xl border border-wiki-border bg-white p-5 sm:p-6 shadow-xs space-y-6">
+        <div className="flex items-center justify-between pb-3 border-b border-wiki-border">
+          <div className="flex items-center gap-2">
+            <FileText className="w-4 h-4 text-brand-600" />
+            <h2 className="font-bold text-sm sm:text-base text-wiki-text">분류별 전체 문서 색인</h2>
+          </div>
+          <span className="text-xs text-brand-600 font-medium">
+            전체 {CATEGORIES.length}개 분류
+          </span>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {docsByCategory.map((category) => (
             <div
-              key={item.step}
-              className="p-4 rounded-xl border border-wiki-border/80 bg-wiki-bg/60 relative hover:border-brand-300 transition-colors"
+              key={category.id}
+              id={`category-${category.id}`}
+              className="rounded-xl border border-brand-100 bg-brand-50/20 p-4 space-y-3"
             >
-              <div className="w-7 h-7 rounded-lg bg-brand-600 text-white font-extrabold text-xs flex items-center justify-center mb-2.5 shadow-xs">
-                {item.step}
+              <div className="flex items-center justify-between pb-2 border-b border-brand-100">
+                <span className="font-bold text-xs text-brand-900 flex items-center gap-1.5">
+                  <span className="w-2 h-2 rounded-full bg-brand-500" />
+                  {category.name}
+                </span>
+                <span className="text-[11px] px-2 py-0.5 rounded-full bg-white text-brand-700 font-mono border border-brand-100">
+                  {category.docs.length}개 문서
+                </span>
               </div>
-              <h4 className="font-bold text-sm text-wiki-text mb-1">
-                {item.title}
-              </h4>
-              <p className="text-xs text-wiki-secondary leading-relaxed">
-                {item.desc}
-              </p>
+
+              <div className="flex flex-wrap gap-1.5">
+                {category.docs.map((doc) => (
+                  <Link
+                    key={doc.slug}
+                    href={`/wiki/${doc.slug}`}
+                    className="text-xs px-2.5 py-1 rounded-md bg-white border border-wiki-border text-wiki-text hover:border-brand-400 hover:text-brand-600 hover:bg-brand-50/50 transition-all font-medium"
+                  >
+                    {doc.title}
+                  </Link>
+                ))}
+              </div>
             </div>
           ))}
         </div>
       </section>
 
-      {/* 최근 수정된 문서 및 카테고리 둘러보기 */}
-      <section className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* 최근 수정 문서 */}
-        <div className="bg-white rounded-2xl border border-wiki-border p-6 shadow-xs space-y-4">
-          <div className="flex items-center justify-between pb-2 border-b border-wiki-border">
-            <div className="flex items-center gap-2 font-bold text-base text-wiki-text">
-              <Clock className="w-4 h-4 text-brand-600" />
-              <h3>최근 업데이트된 위키 문서</h3>
-            </div>
-            <span className="text-xs text-wiki-muted">메타데이터 기준</span>
-          </div>
-
-          <div className="divide-y divide-wiki-border/60">
-            {recentDocs.map((doc) => (
-              <Link
-                key={doc.slug}
-                href={`/wiki/${doc.slug}`}
-                className="py-3 flex items-center justify-between group hover:bg-brand-50/40 -mx-2 px-2 rounded-lg transition-colors"
-              >
-                <div className="min-w-0 pr-3">
-                  <div className="flex items-center gap-2">
-                    <span className="font-bold text-sm text-wiki-text group-hover:text-brand-600 transition-colors truncate">
-                      {doc.title}
-                    </span>
-                    <StatusBadge status={doc.status} />
-                  </div>
-                  <p className="text-xs text-wiki-secondary truncate mt-0.5">
-                    {doc.description || `${doc.category} 문서`}
-                  </p>
-                </div>
-                <div className="text-[11px] text-wiki-muted flex-shrink-0 text-right">
-                  <span>{doc.updatedAt}</span>
-                </div>
-              </Link>
-            ))}
-          </div>
+      {/* 5. 위키 탐색 팁 안내 */}
+      <section className="rounded-xl border border-brand-200 bg-brand-50/40 p-4 text-xs text-wiki-secondary flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+        <div className="flex items-center gap-2.5">
+          <Info className="w-4 h-4 text-brand-600 flex-shrink-0" />
+          <span>
+            <strong>팁:</strong> 문서 본문에서 밑줄이 그어진 게임 용어(예: <code>창단 준비</code>, <code>31주 시즌</code>, <code>8대 능력치</code> 등)를 클릭하면 관련 문서로 즉시 이동합니다.
+          </span>
         </div>
-
-        {/* 카테고리별 요약 */}
-        <div className="bg-white rounded-2xl border border-wiki-border p-6 shadow-xs space-y-4">
-          <div className="flex items-center justify-between pb-2 border-b border-wiki-border">
-            <div className="flex items-center gap-2 font-bold text-base text-wiki-text">
-              <FileText className="w-4 h-4 text-brand-600" />
-              <h3>카테고리별 문서 탐색</h3>
-            </div>
-            <Link
-              href="/wiki"
-              className="text-xs font-semibold text-brand-600 hover:text-brand-700"
-            >
-              전체 보기
-            </Link>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            {CATEGORIES.map((cat) => {
-              const catDocs = allDocs.filter((d) => d.categoryId === cat.id);
-              return (
-                <Link
-                  key={cat.id}
-                  href={`/wiki?category=${cat.id}`}
-                  className="p-3 rounded-xl border border-wiki-border hover:border-brand-300 hover:bg-brand-50/30 transition-all flex items-center justify-between group"
-                >
-                  <div className="min-w-0">
-                    <div className="font-bold text-xs text-wiki-text group-hover:text-brand-600 transition-colors">
-                      {cat.name}
-                    </div>
-                    <div className="text-[11px] text-wiki-muted truncate mt-0.5">
-                      {cat.description}
-                    </div>
-                  </div>
-                  <span className="text-[11px] font-semibold text-brand-600 bg-brand-50 px-2 py-0.5 rounded-full border border-brand-100 flex-shrink-0 ml-2">
-                    {catDocs.length}개
-                  </span>
-                </Link>
-              );
-            })}
-          </div>
+        <div className="flex items-center gap-2 font-mono text-[11px] text-wiki-muted flex-shrink-0">
+          <span>문서 검색 단축키: <kbd className="px-1.5 py-0.5 rounded bg-white border border-wiki-border">Ctrl + K</kbd></span>
         </div>
       </section>
     </main>
