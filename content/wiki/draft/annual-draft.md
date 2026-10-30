@@ -27,9 +27,9 @@ related:
 
 리그 하위권 팀들에게 전력 보강의 기회를 우선 제공하기 위해, 전 시즌 최종 순위의 역순으로 지명권을 배정합니다.
 
-- **1라운드**: 10위 $\rightarrow$ 9위 $\rightarrow$ ... $\rightarrow$ 2위 $\rightarrow$ 1위
-- **2라운드**: 1위 $\rightarrow$ 2위 $\rightarrow$ ... $\rightarrow$ 9위 $\rightarrow$ 10위
-- **3라운드**: 10위 $\rightarrow$ 9위 $\rightarrow$ ... $\rightarrow$ 2위 $\rightarrow$ 1위
+- **1라운드**: 10위 → 9위 → ... → 2위 → 1위
+- **2라운드**: 1위 → 2위 → ... → 9위 → 10위
+- **3라운드**: 10위 → 9위 → ... → 2위 → 1위
 
 기획사당 최대 3명씩, 리그 전체에서 최대 30명의 선수가 지명될 수 있습니다.
 
