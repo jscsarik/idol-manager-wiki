@@ -40,7 +40,7 @@ export function Header({ onMobileMenuToggle, isMobileMenuOpen }: HeaderProps) {
     router.push("/wiki/random");
   };
 
-  const DOWNLOAD_URL = "https://drive.google.com/file/d/1lHliyWBKve_eaAQuCoKWbbJf33lBydsm/view?usp=sharing";
+  const DOWNLOAD_URL = "https://drive.google.com/drive/folders/1F3S7lGbP9Ax34j_hxpuJsX614uT4v6p-";
 
   return (
     <>

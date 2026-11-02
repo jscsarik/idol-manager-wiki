@@ -19,7 +19,7 @@ export default function HomePage() {
   const allDocs = getAllDocs();
   const recentDocs = allDocs.slice(0, 6);
 
-  const DOWNLOAD_URL = "https://drive.google.com/file/d/1lHliyWBKve_eaAQuCoKWbbJf33lBydsm/view?usp=sharing";
+  const DOWNLOAD_URL = "https://drive.google.com/drive/folders/1F3S7lGbP9Ax34j_hxpuJsX614uT4v6p-";
 
   // 12단계 가이드 목록
   const guideSteps = [
@@ -140,7 +140,7 @@ export default function HomePage() {
               <span>IDOL_Manager-0.30.3.zip</span>
             </div>
             <p className="text-[#5A5468]">
-              Google Drive 공식 저장소를 통해 게임 클라이언트를 즉시 다운로드하여 플레이할 수 있습니다.
+              Google Drive 공식 배포 폴더를 통해 게임 클라이언트를 즉시 다운로드하여 플레이할 수 있습니다.
             </p>
           </div>
           <a
@@ -341,7 +341,7 @@ export default function HomePage() {
       {/* 6. 위키 푸터 */}
       <footer className="border-t border-[#DDD8E6] pt-4 text-xs text-[#718096] flex flex-col sm:flex-row items-center justify-between gap-2 text-center sm:text-left">
         <div>
-          IDOL Manager 공식 게임 위키 백과사전 · 클라이언트: <a href={DOWNLOAD_URL} target="_blank" rel="noopener noreferrer" className="text-[#553C9A] hover:underline font-bold">IDOL_Manager-0.30.3.zip</a>
+          IDOL Manager 공식 게임 위키 백과사전 · 클라이언트: <a href={DOWNLOAD_URL} target="_blank" rel="noopener noreferrer" className="text-[#553C9A] hover:underline font-bold">Google Drive 배포 저장소</a>
         </div>
         <div>
           문서 검색: <kbd className="px-1.5 py-0.5 bg-white border border-[#DDD8E6] rounded text-[#212529]">Ctrl + K</kbd>

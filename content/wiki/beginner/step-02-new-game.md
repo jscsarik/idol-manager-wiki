@@ -14,7 +14,7 @@ status: "confirmed"
 
 IDOL Manager는 Windows PC 환경에서 실행되는 설치형 시뮬레이션입니다.
 
-* **최신 클라이언트**: [[IDOL_Manager-0.30.3.zip (Google Drive 공식 배포)](https://drive.google.com/file/d/1lHliyWBKve_eaAQuCoKWbbJf33lBydsm/view?usp=sharing)]
+* **최신 클라이언트**: [[IDOL Manager 공식 클라이언트 다운로드 (Google Drive)](https://drive.google.com/drive/folders/1F3S7lGbP9Ax34j_hxpuJsX614uT4v6p-)]
 * **실행 절차**:
   1. 다운로드한 ZIP 압축 파일을 원하는 폴더에 풉니다.
   2. 폴더 내의 `실행하기.bat` 또는 `IDOL_Manager.exe`를 실행합니다.

@@ -22,7 +22,7 @@ related:
 
 IDOL Manager의 공식 최신 배포판은 Google Drive를 통해 바로 다운로드받으실 수 있습니다.
 
-> 💾 **[IDOL_Manager-0.30.3.zip 공식 다운로드 (Google Drive)](https://drive.google.com/file/d/1lHliyWBKve_eaAQuCoKWbbJf33lBydsm/view?usp=sharing)**
+> 💾 **[IDOL Manager 공식 클라이언트 다운로드 (Google Drive)](https://drive.google.com/drive/folders/1F3S7lGbP9Ax34j_hxpuJsX614uT4v6p-)**
 > 
 > * **최신 버전**: v0.30.3
 > * **파일 형식**: ZIP 압축 파일 (`IDOL_Manager-0.30.3.zip`)
