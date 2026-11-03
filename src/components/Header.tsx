@@ -10,10 +10,9 @@ import {
   Download,
   Menu,
   X,
-  History,
-  ExternalLink,
 } from "lucide-react";
 import { SearchModal } from "./SearchModal";
+import { SITE_CONFIG } from "@/lib/site-config";
 
 interface HeaderProps {
   onMobileMenuToggle?: () => void;
@@ -39,8 +38,6 @@ export function Header({ onMobileMenuToggle, isMobileMenuOpen }: HeaderProps) {
   const handleRandomClick = () => {
     router.push("/wiki/random");
   };
-
-  const DOWNLOAD_URL = "https://drive.google.com/drive/folders/1F3S7lGbP9Ax34j_hxpuJsX614uT4v6p-";
 
   return (
     <>
@@ -91,20 +88,19 @@ export function Header({ onMobileMenuToggle, isMobileMenuOpen }: HeaderProps) {
           <div className="flex items-center gap-2 text-xs">
             {/* 공식 다운로드 버튼 */}
             <a
-              href={DOWNLOAD_URL}
+              href={SITE_CONFIG.downloadUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-1.5 px-2.5 py-1 rounded bg-emerald-600 hover:bg-emerald-700 text-white font-bold transition-colors shadow-2xs whitespace-nowrap"
-              title="게임 클라이언트 v0.30.3 다운로드 (Google Drive)"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded bg-emerald-600 hover:bg-emerald-700 text-white font-bold transition-colors shadow-2xs whitespace-nowrap"
+              title="공식 배포 폴더에서 게임 다운로드 (Google Drive)"
             >
               <Download className="w-3.5 h-3.5" />
               <span>다운로드</span>
-              <span className="text-[10px] font-mono opacity-85 hidden md:inline">v0.30.3</span>
             </a>
 
             <Link
               href="/wiki"
-              className="hidden sm:flex items-center gap-1 px-2.5 py-1 rounded hover:bg-white/10 text-purple-100 hover:text-white transition-colors"
+              className="hidden sm:flex items-center gap-1 px-2.5 py-1.5 rounded hover:bg-white/10 text-purple-100 hover:text-white transition-colors"
             >
               <BookOpen className="w-3.5 h-3.5" />
               <span>전체 문서</span>
@@ -112,7 +108,7 @@ export function Header({ onMobileMenuToggle, isMobileMenuOpen }: HeaderProps) {
 
             <button
               onClick={handleRandomClick}
-              className="hidden md:flex items-center gap-1 px-2 py-1 rounded hover:bg-white/10 text-purple-100 hover:text-white transition-colors"
+              className="hidden md:flex items-center gap-1 px-2.5 py-1.5 rounded hover:bg-white/10 text-purple-100 hover:text-white transition-colors"
               title="랜덤 문서 보기"
             >
               <Shuffle className="w-3.5 h-3.5" />
