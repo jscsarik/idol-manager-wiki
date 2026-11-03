@@ -298,7 +298,10 @@ function autoLinkGlossary(htmlString: string, currentSlug: string): string {
         replaceCount++;
         linkedTerms.add(entry.term);
         const anchorPart = entry.anchor ? `#${entry.anchor}` : "";
-        return `<a href="/wiki/${entry.slug}${anchorPart}" class="wiki-auto-link" title="${entry.term} 문서로 이동">${match}</a>`;
+        const linkTag = `<a href="/wiki/${entry.slug}${anchorPart}" class="wiki-auto-link">${match}</a>`;
+        const token = `@@PROTECTED_TAG_${protectedBlocks.length}@@`;
+        protectedBlocks.push(linkTag);
+        return token;
       }
       return match;
     });
